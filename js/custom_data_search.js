@@ -17,7 +17,9 @@ $( document ).ready( function() {
                              * use custom project as target and open in new tab
                              */
                             let record_url = app_path_webroot+'DataEntry/index.php?pid='+STPipe.target_pid+'&page='+data_arr[1]+'&event_id='+data_arr[2]+'&id='+data_arr[3]+'&instance='+data_arr[0];
-                            window.open(record_url);
+                            console.log(record_url);
+                            ajaxGet(data_arr[3]);
+                            //window.open(record_url);
                             // end of override
                             return false;
                         },
@@ -61,3 +63,17 @@ $( document ).ready( function() {
     // end of imported function
 
 });
+
+function ajaxGet(record_id) {
+    $.get({
+        url: STPipe.ajaxpage,
+        data: {
+                recordId: record_id
+              },
+        })
+    .done(function(data) {
+        response_data = JSON.parse(data);
+        // TODO: unnest, use a mapping to pipe fields
+        console.log(response_data);
+    });
+}
