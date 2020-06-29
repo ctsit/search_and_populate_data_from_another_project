@@ -7,6 +7,15 @@ use DataEntry;
 
 class ExternalModule extends AbstractExternalModule {
 
+    function redcap_every_page_top($project_id) {
+        if ($project_id && strpos(PAGE, 'ExternalModules/manager/project.php') !== false) {
+            $this->setJsSettings([
+                    modulePrefix => $this->PREFIX
+            ]);
+            $this->includeJs('js/config_menu.js');
+        }
+    }
+
     function redcap_data_entry_form_top($project_id, $record, $instrument, $event_id, $group_id, $repeat_instance) {
 
         $this->setJsSettings([
