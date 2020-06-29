@@ -33,11 +33,14 @@ class ExternalModule extends AbstractExternalModule {
 
         $project_id = $this->framework->getProjectSetting('target_pid');
 
+        $mapping = json_decode($this->framework->getProjectSetting('mapping'), true);
+        $source_fields = array_keys($mapping);
+
         $get_data = [
             'project_id' => $project_id,
             'records' => $ufid,
             //'events' => $event,
-            //'fields' => $fields,
+            'fields' => $source_fields,
             ];
 
         $redcap_data = \REDCap::getData($get_data);
@@ -54,7 +57,14 @@ class ExternalModule extends AbstractExternalModule {
         */
 
 
-        return $redcap_data[$ufid];
+        // eliminate event-level of array and promote fields
+        $o_person_data = $redcap_data[$ufid];
+        $o_person_data = array_merge_recursive($redcap_data[$ufid])[0];
+        // replace original keys with mapped values
+        $person_data = array_combine(array_merge($o_person_data, $mapping), $o_person_data);
+
+        //return array_merge_recursive($redcap_data[$ufid])[0];
+        return $person_data;
     }
 
     protected function includeJs($file) {
