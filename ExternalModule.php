@@ -10,7 +10,10 @@ class ExternalModule extends AbstractExternalModule {
     function redcap_every_page_top($project_id) {
         if ($project_id && strpos(PAGE, 'ExternalModules/manager/project.php') !== false) {
             $this->setJsSettings([
-                    modulePrefix => $this->PREFIX
+                    'modulePrefix' => $this->PREFIX,
+                    'sourceProjectId' => $this->framework->getProjectSetting('target_pid'),
+                    'thisProjectId' => $project_id
+
             ]);
             $this->includeJs('js/config_menu.js');
         }
@@ -31,13 +34,13 @@ class ExternalModule extends AbstractExternalModule {
 
         if (!$ufid) return false;
 
-        $project_id = $this->framework->getProjectSetting('target_pid');
+        $target_project_id = $this->framework->getProjectSetting('target_pid');
 
         $mapping = json_decode($this->framework->getProjectSetting('mapping'), true);
         $source_fields = array_keys($mapping);
 
         $get_data = [
-            'project_id' => $project_id,
+            'project_id' => $target_project_id,
             'records' => $ufid,
             //'events' => $event,
             'fields' => $source_fields,
