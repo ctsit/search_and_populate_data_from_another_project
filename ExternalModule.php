@@ -58,12 +58,24 @@ class ExternalModule extends AbstractExternalModule {
 
 
         // eliminate event-level of array and promote fields
-        $o_person_data = $redcap_data[$ufid];
-        $o_person_data = array_merge_recursive($redcap_data[$ufid])[0];
-        // replace original keys with mapped values
-        $person_data = array_combine(array_merge($o_person_data, $mapping), $o_person_data);
+        $all_person_data = array_merge_recursive($redcap_data[$ufid]);
 
-        //return array_merge_recursive($redcap_data[$ufid])[0];
+        $person_data = $all_person_data[0]; // only data from non-repeat events
+
+        // replace source field names with mapped target field names
+        array_walk_recursive($person_data, function($value,$source_key) use ($mapping,&$person_data, $all_person_data) {
+                $target_key = array_key_exists($source_key, $mapping) ? $mapping[$source_key] : false;
+                if ($target_key !== false) {
+                    $person_data[$target_key] = $value;
+                    if (!$person_data[$target_key]) {
+                        // dig into repeat_instances and pull out non-null values
+                        $value = $this->digNestedData($all_person_data, $source_key);
+                        $person_data[$target_key] = $value;
+                    }
+                    unset($person_data[$source_key]);
+                }
+            });
+
         return $person_data;
     }
 
@@ -73,6 +85,24 @@ class ExternalModule extends AbstractExternalModule {
 
     protected function setJsSettings($settings) {
         echo '<script>STPipe = ' . json_encode($settings) . ';</script>';
+    }
+
+    function digNestedData($subject_data_array, $key) {
+        $value = null;
+        if (property_exists($subject_data_array, $key)) {
+            $value = $subject_data_array->{$key};
+        } else {
+            // keys nested in objects were not being found
+            array_walk_recursive($subject_data_array,
+                                 function($v, $k) use ($key, &$value) {
+                                     if ("$key" == "$k") {
+                                         $value = $v;
+                                     }
+                                 }
+            );
+        }
+
+        return $value;
     }
 
 }

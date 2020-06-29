@@ -79,5 +79,7 @@ function ajaxGet(record_id) {
 function pasteValues(values) {
     for (let [key, value] of Object.entries(values)) {
         $(`input[name='${key}']`).val(`${value}`);
+        // FIXME: does not honor desired date formatting
+        // TODO: only works on text input fields
     }
 }
