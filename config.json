@@ -3,6 +3,7 @@
     "description": "Search another project for data to populate data into the current form. This module embeds REDCap's Search Query functionality into a data entry page to allow searches of _another_ project to populate fields in the current data entry page",
     "namespace": "STPipe\\ExternalModule",
     "framework-version": 4,
+    "redcap-version-min": "9.7.8",
     "permissions": [
         "redcap_data_entry_form_top",
         "redcap_every_page_top"
