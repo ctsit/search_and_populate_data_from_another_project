@@ -6,7 +6,7 @@ A REDCap Module to search another project for data to populate data into the cur
 - REDCap >= 9.7.8
 
 ## Easy Installation
-- Obtain this module from the Consortium [REDCap Repo] (https://redcap.vanderbilt.edu/consortium/modules/index.php) from the control center.
+- Obtain this module from the Consortium [REDCap Repo](https://redcap.vanderbilt.edu/consortium/modules/index.php) from the control center.
 
 ## Manual Installation
 - Clone this repo into `<redcap-root>/modules/search_and_populate_data_from_another_project_v0.0.0`.
