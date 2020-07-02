@@ -78,8 +78,14 @@ function ajaxGet(record_id) {
 
 function pasteValues(values) {
     for (let [key, value] of Object.entries(values)) {
-        $(`input[name='${key}']`).val(`${value}`);
-        // FIXME: does not honor desired date formatting
-        // TODO: only works on text input fields
+        let $target_field = $(`input[name='${key}']`);
+        if ($target_field.attr('class') == 'hiddenradio') {
+            // select radio assuming label exactly matches contents of source field
+            let $inputs = $target_field.siblings('.choicevert');
+            $inputs.find(`label:contains('${value}')`).click();
+        } else {
+            // FIXME: does not honor desired date formatting
+            $target_field.val(`${value}`);
+        }
     }
 }
