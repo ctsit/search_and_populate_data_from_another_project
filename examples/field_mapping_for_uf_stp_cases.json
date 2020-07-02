@@ -1,0 +1,9 @@
+{
+    "record_id": "case_emp_ufid",
+    "first_name": "case_name_first",
+    "last_name": "case_name_last",
+    "date_of_birth": "case_dob",
+    "email": "case_email",
+    "phone_number": "case_phone",
+    "person_type": "case_person_type"
+  }
