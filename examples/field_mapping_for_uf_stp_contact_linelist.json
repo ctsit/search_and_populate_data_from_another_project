@@ -1,0 +1,9 @@
+{
+    "record_id": "contact_ll_ufid",
+    "first_name": "contact_ll_firstname",
+    "last_name": "contact_ll_lastname",
+    "date_of_birth": "contact_ll_dob",
+    "email": "contact_ll_email",
+    "phone_number": "contact_ll_phone",
+    "person_type": "contact_ll_person_type"
+}
