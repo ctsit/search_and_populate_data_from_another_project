@@ -104,19 +104,19 @@ class ExternalModule extends AbstractExternalModule {
         echo '<script>STPipe = ' . json_encode($settings) . ';</script>';
     }
 
-    function digNestedData($subject_data_array, $key) {
+    function digNestedData( $subject_data_array, $key ) {
         $value = null;
-        if (property_exists($subject_data_array, $key)) {
+        if ( property_exists( $subject_data_array, $key ) ) {
             $value = $subject_data_array->{$key};
         } else {
             // keys nested in objects were not being found
             array_walk_recursive(
                 $subject_data_array,
-                 function($v, $k) use ($key, &$value) {
-                     if ("$key" == "$k") {
-                         $value = $v;
-                     }
-                 }
+                function ( $v, $k ) use ( $key, &$value ) {
+                    if ( "$key" == "$k" ) {
+                        $value = $v;
+                    }
+                }
             );
         }
 
