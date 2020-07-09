@@ -40,6 +40,7 @@ class ExternalModule extends AbstractExternalModule {
         $target_project_id = $this->framework->getProjectSetting('target_pid');
 
         $mapping = json_decode($this->framework->getProjectSetting('mapping'), true);
+
         $source_fields = array_keys($mapping);
 
         $get_data = [
@@ -62,27 +63,35 @@ class ExternalModule extends AbstractExternalModule {
         }
         */
 
-
         // eliminate event-level of array and promote fields
         $all_person_data = array_merge_recursive($redcap_data[$ufid]);
 
-        $person_data = $all_person_data[0]; // only data from non-repeat events
+        $source_person_data = $all_person_data[0]; // only data from non-repeat events
 
+        $target_person_data = $source_person_data; //initially they are the same
         // replace source field names with mapped target field names
-        array_walk_recursive($person_data, function($value,$source_key) use ($mapping,&$person_data, $all_person_data) {
-                $target_key = array_key_exists($source_key, $mapping) ? $mapping[$source_key] : false;
-                if ($target_key !== false) {
-                    $person_data[$target_key] = $value;
-                    if (!$person_data[$target_key]) {
-                        // dig into repeat_instances and pull out non-null values
-                        $value = $this->digNestedData($all_person_data, $source_key);
-                        $person_data[$target_key] = $value;
-                    }
-                    unset($person_data[$source_key]);
-                }
-            });
+        array_walk_recursive(
+            $source_person_data, 
+            function ( $value, $source_key ) use ( $mapping, &$source_person_data, $all_person_data, &$target_person_data ) {
 
-        return $person_data;
+                $target_key = array_key_exists( $source_key, $mapping ) ? $mapping[$source_key] : false;
+                if ( $target_key !== false ) {
+                    $target_person_data[$target_key] = $value;
+                    if ( !$value ) {
+                        // dig into repeat_instances and pull out non-null values
+                        $value = $this->digNestedData( $all_person_data, $source_key );
+                        $target_person_data[$target_key] = $value;
+                    }
+
+                    // to prevent removing keys that need to remain.
+                    if ( !in_array( $source_key, $mapping ) ) {
+                        unset( $target_person_data[$source_key] );
+                    }
+                }
+            }
+        );
+
+        return $target_person_data;
     }
 
     protected function includeJs($file) {
@@ -93,18 +102,19 @@ class ExternalModule extends AbstractExternalModule {
         echo '<script>STPipe = ' . json_encode($settings) . ';</script>';
     }
 
-    function digNestedData($subject_data_array, $key) {
+    function digNestedData( $subject_data_array, $key ) {
         $value = null;
-        if (property_exists($subject_data_array, $key)) {
+        if ( property_exists( $subject_data_array, $key ) ) {
             $value = $subject_data_array->{$key};
         } else {
             // keys nested in objects were not being found
-            array_walk_recursive($subject_data_array,
-                                 function($v, $k) use ($key, &$value) {
-                                     if ("$key" == "$k") {
-                                         $value = $v;
-                                     }
-                                 }
+            array_walk_recursive(
+                $subject_data_array,
+                function ( $v, $k ) use ( $key, &$value ) {
+                    if ( "$key" == "$k" ) {
+                        $value = $v;
+                    }
+                }
             );
         }
 
