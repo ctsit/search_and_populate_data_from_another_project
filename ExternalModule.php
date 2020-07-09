@@ -75,7 +75,6 @@ class ExternalModule extends AbstractExternalModule {
             function ( $value, $source_key ) use ( $mapping, &$source_person_data, $all_person_data, &$target_person_data ) {
 
                 $target_key = array_key_exists( $source_key, $mapping ) ? $mapping[$source_key] : false;
-                    //var_dump($target_key);
                 if ( $target_key !== false ) {
                     $target_person_data[$target_key] = $value;
                     //var_dump($value);
