@@ -77,7 +77,6 @@ class ExternalModule extends AbstractExternalModule {
                 $target_key = array_key_exists( $source_key, $mapping ) ? $mapping[$source_key] : false;
                 if ( $target_key !== false ) {
                     $target_person_data[$target_key] = $value;
-                    //var_dump($value);
                     if ( !$value ) {
                         // dig into repeat_instances and pull out non-null values
                         $value = $this->digNestedData( $all_person_data, $source_key );
