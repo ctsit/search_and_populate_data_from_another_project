@@ -33,16 +33,24 @@
             "autocomplete": true
         },
         {
-            "key": "show_on_form",
-            "name": "Show in this form",
-            "type": "form-list",
-            "autocomplete": true
-        },
-        {
-            "key": "mapping",
-            "name": "JSON mapping source:target",
-            "type": "textarea",
-            "autocomplete": true
+            "key": "enabled_forms",
+            "name": "Enabled Forms",
+            "type": "sub_settings",
+            "repeatable": true,
+            "sub_settings": [
+                {
+                    "key": "show_on_form",
+                    "name": "Show in this form",
+                    "type": "form-list",
+                    "autocomplete": true
+                },
+                {
+                    "key": "mapping",
+                    "name": "JSON mapping source:target",
+                    "type": "textarea",
+                    "autocomplete": true
+                }
+            ]
         }
     ]
 }

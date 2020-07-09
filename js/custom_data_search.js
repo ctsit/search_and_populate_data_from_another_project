@@ -64,10 +64,12 @@ $( document ).ready( function() {
 });
 
 function ajaxGet(record_id) {
+    const urlParams = new URLSearchParams(window.location.search);
     $.get({
         url: STPipe.ajaxpage,
         data: {
-                recordId: record_id
+                recordId: record_id,
+                instrument: urlParams.get('page')
               },
         })
     .done(function(data) {
