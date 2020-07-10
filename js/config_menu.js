@@ -13,7 +13,6 @@ $(document).ready(function() {
     var $modal = $('#external-modules-configure-modal');
 
     $modal.on('show.bs.modal', function() {
-        console.log('modal happened');
         if ( $(this).data('module') != STPipe.modulePrefix ) {
             return;
         }
@@ -35,11 +34,12 @@ $(document).ready(function() {
                 .html(source_codebook + target_codebook)
                 .attr('colspan', 2);
 
-            let $tfield = $("textarea[name*='mapping___']");
-            $tfield.attr('placeholder', sample_map);
-            $tfield.after(json_lint_button);
-            // FIXME: buttons remain after eliminating a repeatable subsetting
-            // TODO: detect click of $(button.external-modules-remove-instance) and remove convenience buttons for relevant Enabled Form
+            let $mappingFields = $("textarea[name*='mapping___']");
+            $mappingFields
+                .attr('placeholder', sample_map)
+                .siblings().remove(); // prevent duplicate lint buttons for a mapping field
+            $mappingFields.after(json_lint_button.clone());
+            // TODO: force validation of all JSON fields _before_ save
         }
 
     });
