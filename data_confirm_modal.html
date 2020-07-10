@@ -1,0 +1,22 @@
+<div class="modal" id="dialog-data-stp" title="Confirm Data Copy">
+    <div class="modal-body" style="overflow: auto">
+        <div class="span12">
+            <p>These are the fields and values that will be brought into this instrument.</p>
+            <div>
+                <table class="table table-border table-sm">
+                    <thead>
+                        <th>Target Field</th>
+                        <th>Source Value</th>
+                    </thead>
+                    <tbody id="body-for-stp-modal">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" onclick="hideDataConfirmModal(0)">Cancel</button>
+        <button type="button" class="btn btn-success" onclick="hideDataConfirmModal(1)">Copy</button>
+    </div>
+</div>
