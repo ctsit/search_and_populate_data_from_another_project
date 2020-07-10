@@ -1,4 +1,4 @@
-const json_lint_button = $("<input type='button' onclick='prettyPrint()' value='Validate JSON'></input>");
+const json_lint_button = $("<input type='button' onclick='prettyPrint(this)' value='Validate JSON'></input>");
 $(document).ready(function() {
     const source_codebook = $(`<a target='_blank' href='${app_path_webroot_full}${app_path_webroot.slice(1)}Design/data_dictionary_codebook.php?pid=${STPipe.sourceProjectId}'><button>Source codebook</button></a>`);
     const target_codebook = $(`<a target='_blank' href='${app_path_webroot_full}${app_path_webroot.slice(1)}Design/data_dictionary_codebook.php?pid=${STPipe.thisProjectId}'><button>Target codebook</button></a>`);
@@ -19,19 +19,19 @@ $(document).ready(function() {
                 return;
             }
 
-            let $tfield = $("textarea[name='mapping']");
+            let $tfield = $("textarea[name*='mapping___']");
             fillIfBlank($tfield);
             $tfield.after(json_lint_button);
             $tfield.before(source_codebook);
             $tfield.before(target_codebook);
-
+            // TODO: detect click of $(button.external-modules-remove-instance) and remove convenience buttons for relevant Enabled Form
         }
 
     });
 });
 
-function prettyPrint() {
-    let $field = $("textarea[name='mapping']");
+function prettyPrint(element) {
+    let $field = $(element).prev();
     let ugly = $field.val();
     if (ugly) {
         try {
