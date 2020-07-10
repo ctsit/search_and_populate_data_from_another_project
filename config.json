@@ -33,6 +33,11 @@
             "autocomplete": true
         },
         {
+            "key": "codebook_shortcuts",
+            "name": "Codebook shortcuts",
+            "type": "descriptive"
+        },
+        {
             "key": "enabled_forms",
             "name": "Enabled Forms",
             "type": "sub_settings",
