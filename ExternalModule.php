@@ -30,6 +30,8 @@ class ExternalModule extends AbstractExternalModule {
         ]);
         $this->includeJs('js/custom_data_search.js');
         DataEntry::renderSearchUtility();
+
+        include( 'data_confirm_modal.html' );
         echo '</br>';
     }
 
@@ -120,5 +122,4 @@ class ExternalModule extends AbstractExternalModule {
 
         return $value;
     }
-
 }
