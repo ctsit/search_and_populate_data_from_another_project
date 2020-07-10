@@ -89,7 +89,6 @@ function ajaxGet(record_id) {
     .done(function(data) {
         response_data = JSON.parse(data);
         showDataConfirmModal(response_data);
-        //pasteValues(response_data);
     });
 }
 
