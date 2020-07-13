@@ -22,7 +22,7 @@ class ExternalModule extends AbstractExternalModule {
     function redcap_data_entry_form_top($project_id, $record, $instrument, $event_id, $group_id, $repeat_instance) {
 
         // only spawn search interface on specified form
-        if ($instrument != $this->framework->getProjectSetting('show_on_form')) return;
+        if (!in_array($instrument, $this->framework->getProjectSetting('show_on_form'))) return;
 
         $this->setJsSettings([
                 'target_pid' => $this->framework->getProjectSetting('target_pid'),
@@ -35,19 +35,23 @@ class ExternalModule extends AbstractExternalModule {
         echo '</br>';
     }
 
-    function getPersonInfo($ufid) {
+    function getPersonInfo($record_id, $instrument) {
 
-        if (!$ufid) return false;
+        if (!$record_id) return false;
 
         $target_project_id = $this->framework->getProjectSetting('target_pid');
 
-        $mapping = json_decode($this->framework->getProjectSetting('mapping'), true);
+        $target_forms = $this->framework->getProjectSetting('show_on_form');
+
+        $instrument_index = array_search($instrument, $target_forms);
+
+        $mapping = json_decode($this->framework->getProjectSetting('mapping')[$instrument_index], true);
 
         $source_fields = array_keys($mapping);
 
         $get_data = [
             'project_id' => $target_project_id,
-            'records' => $ufid,
+            'records' => $record_id,
             //'events' => $event,
             'fields' => $source_fields,
             ];
@@ -66,7 +70,7 @@ class ExternalModule extends AbstractExternalModule {
         */
 
         // eliminate event-level of array and promote fields
-        $all_person_data = array_merge_recursive($redcap_data[$ufid]);
+        $all_person_data = array_merge_recursive($redcap_data[$record_id]);
 
         $source_person_data = $all_person_data[0]; // only data from non-repeat events
 
