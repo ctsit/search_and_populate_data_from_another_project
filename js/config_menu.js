@@ -1,7 +1,15 @@
-const json_lint_button = $("<input type='button' onclick='prettyPrint()' value='Validate JSON'></input>");
+const json_lint_button = $("<input type='button' onclick='prettyPrint(this)' value='Validate JSON'></input>");
+const sample_map = JSON.stringify(
+        {
+            "source_field_1" : "target_field_1",
+            "source_field_2" : "target_field_2"
+        },
+        undefined,
+        2
+        );
 $(document).ready(function() {
-    const source_codebook = $(`<a target='_blank' href='${app_path_webroot_full}${app_path_webroot.slice(1)}Design/data_dictionary_codebook.php?pid=${STPipe.sourceProjectId}'><button>Source codebook</button></a>`);
-    const target_codebook = $(`<a target='_blank' href='${app_path_webroot_full}${app_path_webroot.slice(1)}Design/data_dictionary_codebook.php?pid=${STPipe.thisProjectId}'><button>Target codebook</button></a>`);
+    const source_codebook = `<a target='_blank' href='${app_path_webroot_full}${app_path_webroot.slice(1)}Design/data_dictionary_codebook.php?pid=${STPipe.sourceProjectId}'><button>Source codebook</button></a>`;
+    const target_codebook = `<a target='_blank' href='${app_path_webroot_full}${app_path_webroot.slice(1)}Design/data_dictionary_codebook.php?pid=${STPipe.thisProjectId}'><button>Target codebook</button></a>`;
     var $modal = $('#external-modules-configure-modal');
 
     $modal.on('show.bs.modal', function() {
@@ -18,20 +26,27 @@ $(document).ready(function() {
             if ( $modal.data('module') != STPipe.modulePrefix ) {
                 return;
             }
+            // Force the descriptive field to show codebook buttons
+            $("tr[field='codebook_shortcuts']")
+                .children(":first")
+                .removeAttr('colspan')
+                .next() // hijack existing empty td for buttons
+                .html(source_codebook + target_codebook)
+                .attr('colspan', 2);
 
-            let $tfield = $("textarea[name='mapping']");
-            fillIfBlank($tfield);
-            $tfield.after(json_lint_button);
-            $tfield.before(source_codebook);
-            $tfield.before(target_codebook);
-
+            let $mappingFields = $("textarea[name*='mapping___']");
+            $mappingFields
+                .attr('placeholder', sample_map)
+                .siblings().remove(); // prevent duplicate lint buttons for a mapping field
+            $mappingFields.after(json_lint_button.clone());
+            // TODO: force validation of all JSON fields _before_ save
         }
 
     });
 });
 
-function prettyPrint() {
-    let $field = $("textarea[name='mapping']");
+function prettyPrint(element) {
+    let $field = $(element).prev();
     let ugly = $field.val();
     if (ugly) {
         try {
@@ -44,14 +59,3 @@ function prettyPrint() {
         }
     }
 }
-
-function fillIfBlank($field) {
-    if ( !$field.val() ) {
-        default_map = {
-            "source_field_1" : "target_field_1",
-            "source_field_2" : "target_field_2"
-        };
-        $field.val(JSON.stringify(default_map, undefined, 2));
-    }
-}
-

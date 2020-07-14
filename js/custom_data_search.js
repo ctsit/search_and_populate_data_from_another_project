@@ -1,4 +1,20 @@
 $( document ).ready( function() {
+    
+    // setting up the dialog for the search confirmation before copying
+    $( "#dialog-data-stp" ).dialog( {
+        autoOpen: false,
+        draggable: true,
+        resizable: true,
+        closeOnEscape: true,
+        minWidth: 500,
+        modal: true,
+        open: function () {
+            // clicking the background of the modal closes the modal
+            $( '.ui-widget-overlay' ).bind( 'click', function () {
+                $( '#dialog-data-stp' ).dialog( 'close' );
+            } )
+        }
+    } );
 
     // copy relevant function and override it
     function enableDataSearchAutocomplete(field,arm) {
@@ -64,15 +80,17 @@ $( document ).ready( function() {
 });
 
 function ajaxGet(record_id) {
+    const urlParams = new URLSearchParams(window.location.search);
     $.get({
         url: STPipe.ajaxpage,
         data: {
-                recordId: record_id
+                recordId: record_id,
+                instrument: urlParams.get('page')
               },
         })
     .done(function(data) {
         response_data = JSON.parse(data);
-        pasteValues(response_data);
+        showDataConfirmModal(response_data);
     });
 }
 
@@ -88,4 +106,33 @@ function pasteValues(values) {
             $target_field.val(`${value}`);
         }
     }
+}
+
+function showDataConfirmModal( copyData ) {
+    // show the modal
+    $( "#dialog-data-stp" ).dialog( "open" );
+    
+    // hold onto the data in its current form
+    $( "#dialog-data-stp" ).data( 'copyData', copyData );
+    
+    // clear the rows from any previous search
+    $( '#body-for-stp-modal' ).empty();
+    for ( let [key, value] of Object.entries( copyData ) ) {
+        // Add the rows from the current search
+        $( '#body-for-stp-modal' ).append( "<tr><td>" + key + "</td><td>" + value + "</td></tr>" );
+    }
+    
+}
+
+function hideDataConfirmModal( isCopy ) {
+    // close the modal
+    $( "#dialog-data-stp" ).dialog( "close" );
+    // get the data from the html
+    copydata = $( "#dialog-data-stp" ).data( 'copyData' );
+    if ( isCopy > 0 ) {
+        // copy the data into the form
+        pasteValues( copydata );
+    }
+    // clean up afterwards
+    $( "#dialog-data-stp" ).removeData( 'copyData' );
 }
