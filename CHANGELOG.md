@@ -3,6 +3,12 @@ All notable changes to the Search and Populate Data From Another Project module 
 documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [0.2.0] - 2020-07-14
+### Added
+- Display a confirmation modal during data copying (James Pence)
+- Allow use on multiple forms with multiple mappings broke (Kyle Chesney)
+
+
 ## [0.1.0] - 2020-07-02
 ### Summary
 - First release of Search and Populate Data From Another Project module (Kyle Chesney)
