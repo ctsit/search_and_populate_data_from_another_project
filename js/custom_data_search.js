@@ -1,4 +1,6 @@
 $( document ).ready( function() {
+    // hide the field selector because its options are for the target, not source project
+    $("#field_select").parent().parent().hide()
     
     // setting up the dialog for the search confirmation before copying
     $( "#dialog-data-stp" ).dialog( {
