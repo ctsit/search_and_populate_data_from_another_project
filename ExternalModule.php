@@ -22,7 +22,7 @@ class ExternalModule extends AbstractExternalModule {
     function redcap_data_entry_form_top($project_id, $record, $instrument, $event_id, $group_id, $repeat_instance) {
 
         // only spawn search interface on specified form
-        if (!in_array($instrument, $this->framework->getProjectSetting('show_on_form'))) return;
+        if (!in_array($instrument, (array) $this->framework->getProjectSetting('show_on_form'))) return;
 
         $this->setJsSettings([
                 'target_pid' => $this->framework->getProjectSetting('target_pid'),
