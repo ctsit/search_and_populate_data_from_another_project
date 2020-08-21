@@ -3,6 +3,13 @@ All notable changes to the Search and Populate Data From Another Project module 
 documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [0.2.1] - 2020-08-21
+### Changed
+- Support all radio layouts, map using coded values instead of choice labels (Kyle Chesney)
+- Hide field search selector (Kyle Chesney)
+- Force target_forms to array if only 1 entry (Kyle Chesney)
+
+
 ## [0.2.0] - 2020-07-14
 ### Added
 - Display a confirmation modal during data copying (James Pence)

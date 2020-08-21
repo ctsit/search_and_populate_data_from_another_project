@@ -1,4 +1,6 @@
 $( document ).ready( function() {
+    // hide the field selector because its options are for the target, not source project
+    $("#field_select").parent().parent().hide()
     
     // setting up the dialog for the search confirmation before copying
     $( "#dialog-data-stp" ).dialog( {
@@ -98,9 +100,10 @@ function pasteValues(values) {
     for (let [key, value] of Object.entries(values)) {
         let $target_field = $(`input[name='${key}']`);
         if ($target_field.attr('class') == 'hiddenradio') {
-            // select radio assuming label exactly matches contents of source field
-            let $inputs = $target_field.siblings('.choicevert');
-            $inputs.find(`label:contains('${value}')`).click();
+            // collect all radio fields in all layouts
+            let $inputs = $target_field.siblings('[class*="choice"]');
+            // select radio assuming target coded value matches source coded value
+            $inputs.find(`[value='${value}']`).click();
         } else {
             // FIXME: does not honor desired date formatting
             $target_field.val(`${value}`);
