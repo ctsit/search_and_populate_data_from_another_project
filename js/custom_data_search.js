@@ -107,6 +107,7 @@ function pasteValues(values) {
         } else {
             // FIXME: does not honor desired date formatting
             $target_field.val(`${value}`);
+            $target_field.blur();
         }
     }
 }
