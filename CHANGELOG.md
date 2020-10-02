@@ -3,6 +3,11 @@ All notable changes to the Search and Populate Data From Another Project module 
 documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [0.2.2] - 2020-10-02
+### Changed
+- Fire REDCap rules on target fields as they are written to (Kyle Chesney)
+
+
 ## [0.2.1] - 2020-08-21
 ### Changed
 - Support all radio layouts, map using coded values instead of choice labels (Kyle Chesney)
