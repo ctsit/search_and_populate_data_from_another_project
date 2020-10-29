@@ -16,7 +16,8 @@ A REDCap Module to search another project for data to populate data into the cur
 ## Configuration
 Access **Manage External Modules** section of your project, click on _Search and Populate Data From Another Project_'s configure button, and save settings in order to specify the forms where the query box should be visible and provide the field mapping for each of those forms.
 
-- **Project you wish to search:**: The source project you will be searching and pulling values from.
+- **Project you wish to search**: The source project you will be searching and pulling values from.
+    - **Note**: You may only select source projects to which you have access, but user permissions are _not_ checked while the module is used; by defining a source project you are granting access to the data contained in its mapped fields for everyone with access to the target project, _even for users without access to the source project_.
 - **Enabled forms**
     - **Show in this form**: The instrument the following mapping will be applied to.
     - **JSON mapping source:target**: JSON which maps `source_field_names` from the source project to `target_field_names` in your current project.
