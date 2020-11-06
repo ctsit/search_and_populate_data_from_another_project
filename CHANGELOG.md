@@ -3,6 +3,11 @@ All notable changes to the Search and Populate Data From Another Project module 
 documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [0.2.4] - 2020-10-06
+### Changed
+- Add Zenodo DOI badge to README (Philip Chase)
+
+
 ## [0.2.3] - 2020-10-06
 ### Changed
 - Explain (lack of) auth check for access to source project data (Kyle Chesney)
