@@ -37,7 +37,7 @@ class ExternalModule extends AbstractExternalModule {
 
     function getPersonInfo($record_id, $instrument) {
 
-        if (!$record_id) return false;
+        if (!$record_id | !$instrument) return false;
 
         $target_project_id = $this->framework->getProjectSetting('target_pid');
 
@@ -82,12 +82,12 @@ class ExternalModule extends AbstractExternalModule {
 
                 $target_key = array_key_exists( $source_key, $mapping ) ? $mapping[$source_key] : false;
                 if ( $target_key !== false ) {
-                    $target_person_data[$target_key] = $value;
                     if ( !$value ) {
                         // dig into repeat_instances and pull out non-null values
                         $value = $this->digNestedData( $all_person_data, $source_key );
-                        $target_person_data[$target_key] = $value;
                     }
+                    $value = $this->convertDateFormat($target_key, $value);
+                    $target_person_data[$target_key] = $value;
 
                     // to prevent removing keys that need to remain.
                     if ( !in_array( $source_key, $mapping ) ) {
@@ -98,6 +98,49 @@ class ExternalModule extends AbstractExternalModule {
         );
 
         return $target_person_data;
+    }
+
+    // Copied nearly exactly from the DataQuality class because it's a private function
+    // TODO: utilize DateTimeRC::datetimeConvert, but this does all the lifting
+    private function convertDateFormat($field, $value) {
+        global $Proj;
+        // Get field validation type, if exists
+        $valType = $Proj->metadata[$field]['element_validation_type'];
+        // If field is a date[time][_seonds] field with MDY or DMY formatted, then reformat the displayed date for consistency
+        if ($value != '' && !is_array($value) && substr($valType, 0, 4) == 'date'
+            && (substr($valType, -4) == '_mdy' || substr($valType, -4) == '_dmy') ) {
+            // Get array of all available validation types
+            $valTypes = getValTypes();
+            $valTypes['date_mdy']['regex_php'] = $valTypes['date_ymd']['regex_php'];
+            $valTypes['date_dmy']['regex_php'] = $valTypes['date_ymd']['regex_php'];
+            $valTypes['datetime_mdy']['regex_php'] = $valTypes['datetime_ymd']['regex_php'];
+            $valTypes['datetime_dmy']['regex_php'] = $valTypes['datetime_ymd']['regex_php'];
+            $valTypes['datetime_seconds_mdy']['regex_php'] = $valTypes['datetime_seconds_ymd']['regex_php'];
+            $valTypes['datetime_seconds_dmy']['regex_php'] = $valTypes['datetime_seconds_ymd']['regex_php'];
+            // Set regex pattern to use for this field
+            $regex_pattern = $valTypes[$valType]['regex_php'];
+            // Run the value through the regex pattern
+            preg_match($regex_pattern, $value, $regex_matches);
+            // Was it validated? (If so, will have a value in 0 key in array returned.)
+            $failed_regex = (!isset($regex_matches[0]));
+            if ($failed_regex) return $value;
+            // Dates
+            if ($valType == 'date_mdy') {
+                $value = \DateTimeRC::date_ymd2mdy($value);
+            } elseif ($valType == 'date_dmy') {
+                $value = \DateTimeRC::date_ymd2dmy($value);
+            } else {
+                // Datetime and Datetime seconds
+                list ($this_date, $this_time) = explode(" ", $value);
+                if ($valType == 'datetime_mdy' || $valType == 'datetime_seconds_mdy') {
+                    $value = trim(\DateTimeRC::date_ymd2mdy($this_date) . " " . $this_time);
+                } elseif ($valType == 'datetime_dmy' || $valType == 'datetime_seconds_dmy') {
+                    $value = trim(\DateTimeRC::date_ymd2dmy($this_date) . " " . $this_time);
+                }
+            }
+        }
+        // Return the value
+        return $value;
     }
 
     protected function includeJs($file) {
