@@ -24,9 +24,13 @@ class ExternalModule extends AbstractExternalModule {
         // only spawn search interface on specified form
         if (!in_array($instrument, (array) $this->framework->getProjectSetting('show_on_form'))) return;
 
+        $form_index = array_search($instrument, $this->framework->getProjectSetting('show_on_form'));
+        $fields = array_keys(json_decode($this->framework->getProjectSetting('mapping')[$form_index], true));
+
         $this->setJsSettings([
                 'target_pid' => $this->framework->getProjectSetting('target_pid'),
-                'ajaxpage' => $this->framework->getUrl('ajaxpage.php')
+                'ajaxpage' => $this->framework->getUrl('ajaxpage.php'),
+                'fields' => $fields
         ]);
         $this->includeJs('js/custom_data_search.js');
         DataEntry::renderSearchUtility();

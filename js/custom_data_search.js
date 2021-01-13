@@ -1,4 +1,5 @@
 $( document ).ready( function() {
+    const fieldStr = STPipe.fields.join('&field[]=');
     // hide the field selector because its options are for the target, not source project
     $("#field_select").parent().parent().hide()
     
@@ -22,7 +23,7 @@ $( document ).ready( function() {
     function enableDataSearchAutocomplete(field,arm) {
         search = null;
         search = 	$('#search_query').autocomplete({
-                        source: app_path_webroot+'DataEntry/search.php?field='+field+'&pid='+STPipe.target_pid+'&arm='+arm,
+                        source: app_path_webroot+'DataEntry/search.php?field[]='+fieldStr+'&pid='+STPipe.target_pid+'&arm='+arm,
                         minLength: 1,
                         delay: 50,
                         select: function( event, ui ) {
