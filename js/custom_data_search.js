@@ -1,6 +1,14 @@
 $( document ).ready( function() {
-    // hide the field selector because its options are for the target, not source project
-    $("#field_select").parent().parent().hide()
+    if ( STPipe.limit_fields) {
+        // field selector options are initially for the target, not source project
+        // replace them with only those defined in the project config
+        $("#field_select").empty();
+        $.each(STPipe.source_fields_mapping, function(key, label) {
+            $("#field_select").append( $("<option></option>").val(key).html(label) );
+        });
+    } else {
+        $("#field_select").parent().parent().hide()
+    }
     
     // setting up the dialog for the search confirmation before copying
     $( "#dialog-data-stp" ).dialog( {
