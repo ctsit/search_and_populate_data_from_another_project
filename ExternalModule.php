@@ -23,10 +23,50 @@ class ExternalModule extends AbstractExternalModule {
 
         // only spawn search interface on specified form
         if (!in_array($instrument, (array) $this->framework->getProjectSetting('show_on_form'))) return;
+        $target_pid = $this->framework->getProjectSetting('target_pid');
+
+        // collect source project's field labels if needed
+        $source_fields_mapping = [];
+        if ($this->getProjectSetting('limit_fields')) {
+            $mapping = $this->fetchMappings($instrument);
+            $source_fields = array_keys($mapping);
+
+            /* FIXME: EM query does not like field_name IN
+             * mysqli_result object is not behaving with fetch_all
+             */
+            // $sql = "SELECT field_name, element_label
+            //     FROM redcap_metadata
+            //     WHERE project_id = ?
+            //         AND field_name IN (?)";
+            // $source_fields_mapping = $this->framework->
+            //                        query($sql,
+            //                              [$target_pid,
+            //                               implode(",`", $source_fields)
+            //                              ]
+            //                        )->fetch_all(MYSQLI_ASSOC);
+
+            // HACK: fetch the entire data dictionary just to get the field labels
+            // TODO: replace this with direct query for better performance
+            $source_fields_mapping =\MetaData::getDataDictionary(/*$returnFormat= */ 'array',
+                                                                 /*$returnCsvLabelHeaders= */true,
+                                                                 /*$fields= */$source_fields,
+                                                                 /*$forms= */array(),
+                                                                 /*$isMobileApp= */false,
+                                                                 /*$draft_mode= */false,
+                                                                 /*$revision_id= */null,
+                                                                 /*$project_id_override= */$target_pid,
+                                                                 /*$delimiter=','*/);
+
+            foreach($source_fields_mapping as $k => $v) {
+                $source_fields_mapping[$k] = $v['field_label'];
+            }
+        }
 
         $this->setJsSettings([
-                'target_pid' => $this->framework->getProjectSetting('target_pid'),
-                'ajaxpage' => $this->framework->getUrl('ajaxpage.php')
+                'target_pid' => $target_pid,
+                'ajaxpage' => $this->framework->getUrl('ajaxpage.php'),
+                'limit_fields' => $this->framework->getProjectSetting('limit_fields'),
+                'source_fields_mapping' => $source_fields_mapping
         ]);
         $this->includeJs('js/custom_data_search.js');
         DataEntry::renderSearchUtility();
@@ -37,15 +77,11 @@ class ExternalModule extends AbstractExternalModule {
 
     function getPersonInfo($record_id, $instrument) {
 
-        if (!$record_id) return false;
+        if (!$record_id | !$instrument) return false;
 
         $target_project_id = $this->framework->getProjectSetting('target_pid');
 
-        $target_forms = $this->framework->getProjectSetting('show_on_form');
-
-        $instrument_index = array_search($instrument, $target_forms);
-
-        $mapping = json_decode($this->framework->getProjectSetting('mapping')[$instrument_index], true);
+        $mapping = $this->fetchMappings($instrument);
 
         $source_fields = array_keys($mapping);
 
@@ -82,12 +118,12 @@ class ExternalModule extends AbstractExternalModule {
 
                 $target_key = array_key_exists( $source_key, $mapping ) ? $mapping[$source_key] : false;
                 if ( $target_key !== false ) {
-                    $target_person_data[$target_key] = $value;
                     if ( !$value ) {
                         // dig into repeat_instances and pull out non-null values
                         $value = $this->digNestedData( $all_person_data, $source_key );
-                        $target_person_data[$target_key] = $value;
                     }
+                    $value = $this->convertDateFormat($target_key, $value);
+                    $target_person_data[$target_key] = $value;
 
                     // to prevent removing keys that need to remain.
                     if ( !in_array( $source_key, $mapping ) ) {
@@ -98,6 +134,49 @@ class ExternalModule extends AbstractExternalModule {
         );
 
         return $target_person_data;
+    }
+
+    // Copied nearly exactly from the DataQuality class because it's a private function
+    // TODO: utilize DateTimeRC::datetimeConvert, but this does all the lifting
+    private function convertDateFormat($field, $value) {
+        global $Proj;
+        // Get field validation type, if exists
+        $valType = $Proj->metadata[$field]['element_validation_type'];
+        // If field is a date[time][_seonds] field with MDY or DMY formatted, then reformat the displayed date for consistency
+        if ($value != '' && !is_array($value) && substr($valType, 0, 4) == 'date'
+            && (substr($valType, -4) == '_mdy' || substr($valType, -4) == '_dmy') ) {
+            // Get array of all available validation types
+            $valTypes = getValTypes();
+            $valTypes['date_mdy']['regex_php'] = $valTypes['date_ymd']['regex_php'];
+            $valTypes['date_dmy']['regex_php'] = $valTypes['date_ymd']['regex_php'];
+            $valTypes['datetime_mdy']['regex_php'] = $valTypes['datetime_ymd']['regex_php'];
+            $valTypes['datetime_dmy']['regex_php'] = $valTypes['datetime_ymd']['regex_php'];
+            $valTypes['datetime_seconds_mdy']['regex_php'] = $valTypes['datetime_seconds_ymd']['regex_php'];
+            $valTypes['datetime_seconds_dmy']['regex_php'] = $valTypes['datetime_seconds_ymd']['regex_php'];
+            // Set regex pattern to use for this field
+            $regex_pattern = $valTypes[$valType]['regex_php'];
+            // Run the value through the regex pattern
+            preg_match($regex_pattern, $value, $regex_matches);
+            // Was it validated? (If so, will have a value in 0 key in array returned.)
+            $failed_regex = (!isset($regex_matches[0]));
+            if ($failed_regex) return $value;
+            // Dates
+            if ($valType == 'date_mdy') {
+                $value = \DateTimeRC::date_ymd2mdy($value);
+            } elseif ($valType == 'date_dmy') {
+                $value = \DateTimeRC::date_ymd2dmy($value);
+            } else {
+                // Datetime and Datetime seconds
+                list ($this_date, $this_time) = explode(" ", $value);
+                if ($valType == 'datetime_mdy' || $valType == 'datetime_seconds_mdy') {
+                    $value = trim(\DateTimeRC::date_ymd2mdy($this_date) . " " . $this_time);
+                } elseif ($valType == 'datetime_dmy' || $valType == 'datetime_seconds_dmy') {
+                    $value = trim(\DateTimeRC::date_ymd2dmy($this_date) . " " . $this_time);
+                }
+            }
+        }
+        // Return the value
+        return $value;
     }
 
     protected function includeJs($file) {
@@ -125,5 +204,12 @@ class ExternalModule extends AbstractExternalModule {
         }
 
         return $value;
+    }
+
+    function fetchMappings($instrument) {
+        $target_forms = $this->framework->getProjectSetting('show_on_form');
+        $instrument_index = array_search($instrument, $target_forms);
+        $mapping = json_decode($this->framework->getProjectSetting('mapping')[$instrument_index], true);
+        return $mapping;
     }
 }

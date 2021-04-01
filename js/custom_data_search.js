@@ -1,6 +1,14 @@
 $( document ).ready( function() {
-    // hide the field selector because its options are for the target, not source project
-    $("#field_select").parent().parent().hide()
+    if ( STPipe.limit_fields) {
+        // field selector options are initially for the target, not source project
+        // replace them with only those defined in the project config
+        $("#field_select").empty();
+        $.each(STPipe.source_fields_mapping, function(key, label) {
+            $("#field_select").append( $("<option></option>").val(key).html(label) );
+        });
+    } else {
+        $("#field_select").parent().parent().hide()
+    }
     
     // setting up the dialog for the search confirmation before copying
     $( "#dialog-data-stp" ).dialog( {
@@ -59,13 +67,13 @@ $( document ).ready( function() {
     }
     $(function(){
         // Enable searching via auto complete
-        enableDataSearchAutocomplete($('#field_select option:first').val(),'<?php echo getArm() ?>');
+        enableDataSearchAutocomplete($('#field_select option:first').val(),'1');
         // If user selects new field for Data Search, set search query input to blank
         $('#field_select').change(function(){
             // Reset query text
             $('#search_query').val('');
             // Enable searching via auto complete
-            enableDataSearchAutocomplete($(this).val(),'<?php echo getArm() ?>');
+            enableDataSearchAutocomplete($(this).val(),'1');
         });
         // Make progress gif appear when loading new results
         $('#search_query').keydown(function(e){
