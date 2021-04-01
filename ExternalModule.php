@@ -23,10 +23,50 @@ class ExternalModule extends AbstractExternalModule {
 
         // only spawn search interface on specified form
         if (!in_array($instrument, (array) $this->framework->getProjectSetting('show_on_form'))) return;
+        $target_pid = $this->framework->getProjectSetting('target_pid');
+
+        // collect source project's field labels if needed
+        $source_fields_mapping = [];
+        if ($this->getProjectSetting('limit_fields')) {
+            $mapping = $this->fetchMappings($instrument);
+            $source_fields = array_keys($mapping);
+
+            /* FIXME: EM query does not like field_name IN
+             * mysqli_result object is not behaving with fetch_all
+             */
+            // $sql = "SELECT field_name, element_label
+            //     FROM redcap_metadata
+            //     WHERE project_id = ?
+            //         AND field_name IN (?)";
+            // $source_fields_mapping = $this->framework->
+            //                        query($sql,
+            //                              [$target_pid,
+            //                               implode(",`", $source_fields)
+            //                              ]
+            //                        )->fetch_all(MYSQLI_ASSOC);
+
+            // HACK: fetch the entire data dictionary just to get the field labels
+            // TODO: replace this with direct query for better performance
+            $source_fields_mapping =\MetaData::getDataDictionary(/*$returnFormat= */ 'array',
+                                                                 /*$returnCsvLabelHeaders= */true,
+                                                                 /*$fields= */$source_fields,
+                                                                 /*$forms= */array(),
+                                                                 /*$isMobileApp= */false,
+                                                                 /*$draft_mode= */false,
+                                                                 /*$revision_id= */null,
+                                                                 /*$project_id_override= */$target_pid,
+                                                                 /*$delimiter=','*/);
+
+            foreach($source_fields_mapping as $k => $v) {
+                $source_fields_mapping[$k] = $v['field_label'];
+            }
+        }
 
         $this->setJsSettings([
-                'target_pid' => $this->framework->getProjectSetting('target_pid'),
-                'ajaxpage' => $this->framework->getUrl('ajaxpage.php')
+                'target_pid' => $target_pid,
+                'ajaxpage' => $this->framework->getUrl('ajaxpage.php'),
+                'limit_fields' => $this->framework->getProjectSetting('limit_fields'),
+                'source_fields_mapping' => $source_fields_mapping
         ]);
         $this->includeJs('js/custom_data_search.js');
         DataEntry::renderSearchUtility();
@@ -41,11 +81,7 @@ class ExternalModule extends AbstractExternalModule {
 
         $target_project_id = $this->framework->getProjectSetting('target_pid');
 
-        $target_forms = $this->framework->getProjectSetting('show_on_form');
-
-        $instrument_index = array_search($instrument, $target_forms);
-
-        $mapping = json_decode($this->framework->getProjectSetting('mapping')[$instrument_index], true);
+        $mapping = $this->fetchMappings($instrument);
 
         $source_fields = array_keys($mapping);
 
@@ -168,5 +204,12 @@ class ExternalModule extends AbstractExternalModule {
         }
 
         return $value;
+    }
+
+    function fetchMappings($instrument) {
+        $target_forms = $this->framework->getProjectSetting('show_on_form');
+        $instrument_index = array_search($instrument, $target_forms);
+        $mapping = json_decode($this->framework->getProjectSetting('mapping')[$instrument_index], true);
+        return $mapping;
     }
 }

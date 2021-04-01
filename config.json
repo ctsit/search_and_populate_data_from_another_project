@@ -33,6 +33,11 @@
             "autocomplete": true
         },
         {
+            "key": "limit_fields",
+            "name": "Limit fields to search</br>(improves performance with large source projects)",
+            "type": "checkbox"
+        },
+        {
             "key": "codebook_shortcuts",
             "name": "Codebook shortcuts",
             "type": "descriptive"
