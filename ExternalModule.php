@@ -81,7 +81,7 @@ class ExternalModule extends AbstractExternalModule {
 
         $target_project_id = $this->framework->getProjectSetting('target_pid');
 
-        $mapping = fetchMappings($instrument);
+        $mapping = $this->fetchMappings($instrument);
 
         $source_fields = array_keys($mapping);
 
