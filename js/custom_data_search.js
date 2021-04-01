@@ -67,13 +67,13 @@ $( document ).ready( function() {
     }
     $(function(){
         // Enable searching via auto complete
-        enableDataSearchAutocomplete($('#field_select option:first').val(),'<?php echo getArm() ?>');
+        enableDataSearchAutocomplete($('#field_select option:first').val(),'1');
         // If user selects new field for Data Search, set search query input to blank
         $('#field_select').change(function(){
             // Reset query text
             $('#search_query').val('');
             // Enable searching via auto complete
-            enableDataSearchAutocomplete($(this).val(),'<?php echo getArm() ?>');
+            enableDataSearchAutocomplete($(this).val(),'1');
         });
         // Make progress gif appear when loading new results
         $('#search_query').keydown(function(e){

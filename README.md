@@ -4,6 +4,9 @@
 
 A REDCap Module to search another project for data to populate data into the current form. This module embeds REDCap's Search Query functionality into a data entry page to allow searches of _another_ project to populate fields in the current data entry page.
 
+## Limitations
+This module does not support target projects which have multiple arms. You will only receive data from the first arm.
+
 ## Prerequisites
 - REDCap >= 9.7.8
 
