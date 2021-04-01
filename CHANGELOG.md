@@ -3,6 +3,17 @@ All notable changes to the Search and Populate Data From Another Project module 
 documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [0.3.0] - 2021-04-01
+### Added
+- Add Limit fields to search option Add fetchMappings helper function to backend (Kyle Chesney)
+
+### Changed
+- Update README to state lack of multi-arm support (Kyle Chesney)
+- Fix php call causing breakage as early as redcap v10.5.1 hardcode arm arg in enableDataSearchAutocomplete call (Kyle Chesney)
+- Dynamically updates source codebook href (mbentz)
+- Support piping to non-YMD[_HMS] date types (Kyle Chesney)
+
+
 ## [0.2.4] - 2020-10-06
 ### Changed
 - Add Zenodo DOI badge to README (Philip Chase)
