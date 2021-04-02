@@ -54,7 +54,7 @@ class ExternalModule extends AbstractExternalModule {
                                                                  /*$isMobileApp= */false,
                                                                  /*$draft_mode= */false,
                                                                  /*$revision_id= */null,
-                                                                 /*$project_id_override= */$target_pid,
+                                                                 /*$project_id_override= */$target_pid
                                                                  /*$delimiter=','*/);
 
             foreach($source_fields_mapping as $k => $v) {
