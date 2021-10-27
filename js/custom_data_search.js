@@ -107,6 +107,11 @@ function ajaxGet(record_id) {
 function pasteValues(values) {
     for (let [key, value] of Object.entries(values)) {
         let $target_field = $(`input[name='${key}']`);
+        if ($target_field.length == 0) {
+            // not found by name attr, field may be present as a dropdown
+            selectFromDropdown(key, value);
+        }
+        // radio and regular text boxes
         if ($target_field.attr('class') == 'hiddenradio') {
             // collect all radio fields in all layouts
             let $inputs = $target_field.siblings('[class*="choice"]');
@@ -117,6 +122,44 @@ function pasteValues(values) {
             $target_field.val(`${value}`);
             $target_field.blur();
         }
+    }
+}
+
+function selectFromDropdown(key, value) {
+    const $target_row = $(`tr[sq_id='${key}']`);
+    const $ac_target_field = $($target_row.find("input")[0]); // ac = auto complete
+    const $select_field = $(`select[name='${key}']`);
+
+    // used to handle cases where the value provided is the displayed value of the desired option,
+    // rather than the coded value (value attribute)
+    const displayed_option_value = $select_field
+          .children()
+          .filter( (i, e) => {
+              return ( $(e).html() == value );
+          } )
+          .val();
+
+    // autocomplete fields
+    if ($ac_target_field.attr('class') == 'x-form-text x-form-field rc-autocomplete ui-autocomplete-input') {
+        // the non-coded value must be put in the text box to allow the user to see the pipe occured
+        // if displayed_value is undefined, this function sets the value to nothing
+        const displayed_value = $select_field
+              .children(`[value='${value}']`)
+              .html();
+        $ac_target_field.val(displayed_value);
+
+        if ($ac_target_field.val() != value && displayed_option_value != undefined) {
+            // TODO: handle the possibilty that this value could go in an "other" field behind branching logic
+            $ac_target_field.val(value);
+        }
+        return;
+    }
+
+    // non autocomplete fields
+    $select_field.val(value);
+    if ($select_field.val() != value && displayed_option_value != undefined) {
+        // TODO: handle the possibilty that this value could go in an "other" field behind branching logic
+        $select_field.val(displayed_option_value);
     }
 }
 
