@@ -3,6 +3,11 @@ All notable changes to the Search and Populate Data From Another Project module 
 documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [0.4.0] - 2021-10-28
+### Added
+- Add support for populating dropdown fields, both autocompleting and regular (Kyle Chesney)
+
+
 ## [0.3.1] - 2021-04-02
 ### Changed
 - Remove trailing comma from final param to getDataDictionary call to support PHP < 7.3 (Kyle Chesney)
