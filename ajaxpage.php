@@ -7,7 +7,5 @@ $record_id = $_REQUEST['recordId'];
 $instrument = $_REQUEST['instrument'];
 
 $EM = new ExternalModule();
-
-echo json_encode($EM->getPersonInfo($record_id, $instrument));
-
-?>
+$result = $EM->getPersonInfo($record_id, $instrument);
+echo json_encode($result);
