@@ -108,6 +108,10 @@ class ExternalModule extends AbstractExternalModule
         */
 
         // eliminate event-level of array and promote fields
+
+        if (!isset($redcap_data[$record_id])) {
+            return [];
+        }
         $all_person_data = array_merge_recursive($redcap_data[$record_id]);
 
         $source_person_data = $all_person_data[0]; // only data from non-repeat events
