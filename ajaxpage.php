@@ -1,7 +1,7 @@
 <?php
 
 namespace STPipe\ExternalModule;
-require_once(__DIR__ . '/ExternalModule.php');
+require_once __DIR__ . '/ExternalModule.php';
 
 $record_id = $_REQUEST['recordId'];
 $instrument = $_REQUEST['instrument'];
