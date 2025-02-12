@@ -1,17 +1,17 @@
-$( document ).ready( function() {
-    if ( STPipe.limit_fields) {
+$(document).ready(function () {
+    if (STPipe.limit_fields) {
         // field selector options are initially for the target, not source project
         // replace them with only those defined in the project config
         $("#field_select").empty();
-        $.each(STPipe.source_fields_mapping, function(key, label) {
-            $("#field_select").append( $("<option></option>").val(key).html(label) );
+        $.each(STPipe.source_fields_mapping, function (key, label) {
+            $("#field_select").append($("<option></option>").val(key).html(label));
         });
     } else {
         $("#field_select").parent().parent().hide()
     }
-    
+
     // setting up the dialog for the search confirmation before copying
-    $( "#dialog-data-stp" ).dialog( {
+    $("#dialog-data-stp").dialog({
         autoOpen: false,
         draggable: true,
         resizable: true,
@@ -20,66 +20,69 @@ $( document ).ready( function() {
         modal: true,
         open: function () {
             // clicking the background of the modal closes the modal
-            $( '.ui-widget-overlay' ).bind( 'click', function () {
-                $( '#dialog-data-stp' ).dialog( 'close' );
-            } )
+            $('.ui-widget-overlay').bind('click', function () {
+                $('#dialog-data-stp').dialog('close');
+            })
         }
-    } );
+    });
 
     // copy relevant function and override it
-    function enableDataSearchAutocomplete(field,arm) {
+    function enableDataSearchAutocomplete(field, arm) {
         search = null;
-        search = 	$('#search_query').autocomplete({
-                        source: app_path_webroot+'DataEntry/search.php?field='+field+'&pid='+STPipe.target_pid+'&arm='+arm,
-                        minLength: 1,
-                        delay: 50,
-                        select: function( event, ui ) {
-                            // Reset value in textbox
-                            $('#search_query').val('');
-                            // Get record and event_id values and redirect to form
-                            var data_arr = ui.item.value.split('|',4);
-                            /****
-                             * The following 2 lines constitute the override,
-                             * use custom project as target and open in new tab
-                             */
-                            let record_url = app_path_webroot+'DataEntry/index.php?pid='+STPipe.target_pid+'&page='+data_arr[1]+'&event_id='+data_arr[2]+'&id='+data_arr[3]+'&instance='+data_arr[0];
-                            ajaxGet(data_arr[3]);
-                            //window.open(record_url);
-                            // end of override
-                            return false;
-                        },
-                        focus: function (event, ui) {
-                            // Reset value in textbox
-                            $('#search_query').val('');
-                            return false;
-                        },
-                        response: function (event, ui) {
-                            // When it opens, hide the progress icon/text
-                            $('#search_progress').fadeOut('fast');
-                        }
-                    })
-                    .data('ui-autocomplete')._renderItem = function( ul, item ) {
-                        return $("<li></li>")
-                            .data("item", item)
-                            .append("<a>"+item.label+"</a>")
-                            .appendTo(ul);
-                    };
+        search = $('#search_query').autocomplete({
+            source: app_path_webroot + 'DataEntry/search.php?field=' + field + '&pid=' + STPipe.target_pid + '&arm=' + arm,
+            minLength: 1,
+            delay: 50,
+            select: function (event, ui) {
+                // Reset value in textbox
+                $('#search_query').val('');
+                // Get record and event_id values and redirect to form
+                var data_arr = ui.item.value.split('|', 4);
+                /****
+                 * The following 2 lines constitute the override,
+                 * use custom project as target and open in new tab
+                 */
+                let record_url = app_path_webroot + 'DataEntry/index.php?pid=' + STPipe.target_pid + '&page=' + data_arr[1] + '&event_id=' + data_arr[2] + '&id=' + data_arr[3] + '&instance=' + data_arr[0];
+                ajaxGet(data_arr[3]);
+                //window.open(record_url);
+                event.preventDefault(); // stop the browser default behavior
+                event.stopImmediatePropagation(); // stop other handlers from running on that same event
+                // end of override
+                return false;
+
+            },
+            focus: function (event, ui) {
+                // Reset value in textbox
+                $('#search_query').val('');
+                return false;
+            },
+            response: function (event, ui) {
+                // When it opens, hide the progress icon/text
+                $('#search_progress').fadeOut('fast');
+            }
+        })
+            .data('ui-autocomplete')._renderItem = function (ul, item) {
+                return $("<li></li>")
+                    .data("item", item)
+                    .append("<a>" + item.label + "</a>")
+                    .appendTo(ul);
+            };
     }
-    $(function(){
+    $(function () {
         // Enable searching via auto complete
-        enableDataSearchAutocomplete($('#field_select option:first').val(),'1');
+        enableDataSearchAutocomplete($('#field_select option:first').val(), '1');
         // If user selects new field for Data Search, set search query input to blank
-        $('#field_select').change(function(){
+        $('#field_select').change(function () {
             // Reset query text
             $('#search_query').val('');
             // Enable searching via auto complete
-            enableDataSearchAutocomplete($(this).val(),'1');
+            enableDataSearchAutocomplete($(this).val(), '1');
         });
         // Make progress gif appear when loading new results
-        $('#search_query').keydown(function(e){
+        $('#search_query').keydown(function (e) {
             if (e.which == 40) return; // If down arrow is clicked, then stop
             $('ul.ui-autocomplete:last').hide();
-            $('ul.ui-autocomplete:last li').each(function(){
+            $('ul.ui-autocomplete:last li').each(function () {
                 $(this).remove();
             });
             showSearchProgress(1);
@@ -94,14 +97,14 @@ function ajaxGet(record_id) {
     $.get({
         url: STPipe.ajaxpage,
         data: {
-                recordId: record_id,
-                instrument: urlParams.get('page')
-              },
-        })
-    .done(function(data) {
-        response_data = JSON.parse(data);
-        showDataConfirmModal(response_data);
-    });
+            recordId: record_id,
+            instrument: urlParams.get('page')
+        },
+    })
+        .done(function (data) {
+            response_data = JSON.parse(data);
+            showDataConfirmModal(response_data);
+        });
 }
 
 function pasteValues(values) {
@@ -133,19 +136,19 @@ function selectFromDropdown(key, value) {
     // used to handle cases where the value provided is the displayed value of the desired option,
     // rather than the coded value (value attribute)
     const displayed_option_value = $select_field
-          .children()
-          .filter( (i, e) => {
-              return ( $(e).html() == value );
-          } )
-          .val();
+        .children()
+        .filter((i, e) => {
+            return ($(e).html() == value);
+        })
+        .val();
 
     // autocomplete fields
     if ($ac_target_field.attr('class') == 'x-form-text x-form-field rc-autocomplete ui-autocomplete-input') {
         // the non-coded value must be put in the text box to allow the user to see the pipe occured
         // if displayed_value is undefined, this function sets the value to nothing
         const displayed_value = $select_field
-              .children(`[value='${value}']`)
-              .html();
+            .children(`[value='${value}']`)
+            .html();
         $ac_target_field.val(displayed_value);
 
         if ($ac_target_field.val() != value && displayed_option_value != undefined) {
@@ -163,31 +166,31 @@ function selectFromDropdown(key, value) {
     }
 }
 
-function showDataConfirmModal( copyData ) {
+function showDataConfirmModal(copyData) {
     // show the modal
-    $( "#dialog-data-stp" ).dialog( "open" );
-    
+    $("#dialog-data-stp").dialog("open");
+
     // hold onto the data in its current form
-    $( "#dialog-data-stp" ).data( 'copyData', copyData );
-    
+    $("#dialog-data-stp").data('copyData', copyData);
+
     // clear the rows from any previous search
-    $( '#body-for-stp-modal' ).empty();
-    for ( let [key, value] of Object.entries( copyData ) ) {
+    $('#body-for-stp-modal').empty();
+    for (let [key, value] of Object.entries(copyData)) {
         // Add the rows from the current search
-        $( '#body-for-stp-modal' ).append( "<tr><td>" + key + "</td><td>" + value + "</td></tr>" );
+        $('#body-for-stp-modal').append("<tr><td>" + key + "</td><td>" + value + "</td></tr>");
     }
-    
+
 }
 
-function hideDataConfirmModal( isCopy ) {
+function hideDataConfirmModal(isCopy) {
     // close the modal
-    $( "#dialog-data-stp" ).dialog( "close" );
+    $("#dialog-data-stp").dialog("close");
     // get the data from the html
-    copydata = $( "#dialog-data-stp" ).data( 'copyData' );
-    if ( isCopy > 0 ) {
+    copydata = $("#dialog-data-stp").data('copyData');
+    if (isCopy > 0) {
         // copy the data into the form
-        pasteValues( copydata );
+        pasteValues(copydata);
     }
     // clean up afterwards
-    $( "#dialog-data-stp" ).removeData( 'copyData' );
+    $("#dialog-data-stp").removeData('copyData');
 }
