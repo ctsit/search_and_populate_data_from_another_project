@@ -1,13 +1,13 @@
 const json_lint_button = $("<input type='button' onclick='prettyPrint(this)' value='Validate JSON'></input>");
 const sample_map = JSON.stringify(
-        {
-            "source_field_1" : "target_field_1",
-            "source_field_2" : "target_field_2"
-        },
-        undefined,
-        2
-        );
-$(document).ready(function() {
+    {
+        "source_field_1": "target_field_1",
+        "source_field_2": "target_field_2"
+    },
+    undefined,
+    2
+);
+$(document).ready(function () {
     const source_codebook = `<a target='_blank' href='${app_path_webroot_full}${app_path_webroot.slice(1)}Design/data_dictionary_codebook.php?pid=${STPipe.sourceProjectId}'><button>Source codebook</button></a>`;
     const target_codebook = `<a target='_blank' href='${app_path_webroot_full}${app_path_webroot.slice(1)}Design/data_dictionary_codebook.php?pid=${STPipe.thisProjectId}'><button>Target codebook</button></a>`;
     var $modal = $('#external-modules-configure-modal');
@@ -22,22 +22,22 @@ $(document).ready(function() {
      * in the previous option being available rather than the new option that was selected. By keeping
      * track of the last hovered Project in the dropdown, the href can be properly updated.
     **/
-    var setSourceCodebook = function() {
+    var setSourceCodebook = function () {
         // Attach mouseenter event listener to project list options to capture last hovered project
-        $('body').on('mouseenter', 'li.select2-results__option', function(event) {
+        $('body').on('mouseenter', 'li.select2-results__option', function (event) {
             var projectText = $(this).text();
-            lastHoveredProjectID = $('tr[field="target_pid"]').find('option:contains("'+projectText+'")').attr('value');
+            lastHoveredProjectID = $('tr[field="target_pid"]').find('option:contains("' + projectText + '")').attr('value');
         });
 
         // Attach change event listener to the project select list to update href
-        $('tr[field="target_pid"]').find('select').on('change', function(event) {
+        $('tr[field="target_pid"]').find('select').on('change', function (event) {
             var updatedHref = `${app_path_webroot_full}${app_path_webroot.slice(1)}Design/data_dictionary_codebook.php?pid=${lastHoveredProjectID}`;
             $("tr[field='codebook_shortcuts'] a").first().attr('href', updatedHref);
-        });        
+        });
     }
 
-    $modal.on('show.bs.modal', function() {
-        if ( $(this).data('module') != STPipe.modulePrefix ) {
+    $modal.on('show.bs.modal', function () {
+        if ($(this).data('module') != STPipe.modulePrefix) {
             return;
         }
 
@@ -45,9 +45,9 @@ $(document).ready(function() {
             ExternalModules.Settings.prototype.resetConfigInstancesOld = ExternalModules.Settings.prototype.resetConfigInstances;
         }
 
-        ExternalModules.Settings.prototype.resetConfigInstances = function() {
+        ExternalModules.Settings.prototype.resetConfigInstances = function () {
             ExternalModules.Settings.prototype.resetConfigInstancesOld();
-            if ( $modal.data('module') != STPipe.modulePrefix ) {
+            if ($modal.data('module') != STPipe.modulePrefix) {
                 return;
             }
             // Force the descriptive field to show codebook buttons
@@ -79,6 +79,7 @@ function prettyPrint(element) {
         try {
             let pretty = JSON.stringify(JSON.parse(ugly), undefined, 2);
             $field.val(pretty);
+            alert("JSON is valid!");
         } catch (err) {
             if (err instanceof SyntaxError) {
                 alert("There is an error in your JSON syntax:\n" + err.message);

@@ -1,7 +1,9 @@
-# Change Log
-All notable changes to the Search and Populate Data From Another Project module will be 
-documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
-
+# search_and_populate_data_from_another_project 0.5.0 (released 2025-02-12)
+- Address issue #30 'No data copied' (@saipavan10-git, #30, #32)
+- Address issue #29 'Bug and error on field mapping' (@saipavan10-git, #29, #32)
+- Add a max redcap version (@saipavan10-git, @pbchase, #32)
+- Update Framework version (@saipavan10-git, #32)
+- Create AUTHORS.md (@saipavan10-git, @pbchase, #31, #32)
 
 ## [0.4.0] - 2021-10-28
 ### Added
