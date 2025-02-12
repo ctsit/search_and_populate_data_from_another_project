@@ -2,13 +2,18 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4251176.svg)](https://doi.org/10.5281/zenodo.4251176)
 
-A REDCap Module to search another project for data to populate data into the current form. This module embeds REDCap's Search Query functionality into a data entry page to allow searches of _another_ project to populate fields in the current data entry page.
+A REDCap Module to search another project for data to populate data into the current form. This module embeds REDCap's Search Query functionality into a data entry page to enable searches of _another_ project to populate fields in the current data entry page.
 
 ## Limitations
 This module does not support source projects which have multiple arms. All queries of the source project will be against arm 1 of the source project.
 
+This modules does not support the copying of checkbox fields.
+
 ## Prerequisites
-- REDCap >= 9.7.8
+- REDCap Standard 14.0.2 - 15.0.0
+- REDCap LTS 14.0.5 - 14.5.34
+
+Bug fixes released in REDCap STD 15.0.1 and REDCap LTS 14.5.35 break this module. Repairs will be made in a subsequent release.
 
 ## Easy Installation
 - Obtain this module from the Consortium [REDCap Repo](https://redcap.vanderbilt.edu/consortium/modules/index.php) from the control center.
