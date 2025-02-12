@@ -13,7 +13,7 @@ This modules does not support the copying of checkbox fields.
 - REDCap Standard 14.0.2 - 15.0.0
 - REDCap LTS 14.0.5 - 14.5.34
 
-Big fixes released in REDCap STD 15.0.1 and REDCap LTS 14.5.35 break this module. Repairs will be made in a subsequent release.
+Bug fixes released in REDCap STD 15.0.1 and REDCap LTS 14.5.35 break this module. Repairs will be made in a subsequent release.
 
 ## Easy Installation
 - Obtain this module from the Consortium [REDCap Repo](https://redcap.vanderbilt.edu/consortium/modules/index.php) from the control center.

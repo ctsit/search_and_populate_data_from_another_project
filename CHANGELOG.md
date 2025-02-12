@@ -1,3 +1,6 @@
+# search_and_populate_data_from_another_project 0.5.1 (released 2025-02-12)
+- Update README with new requirements and limitations (@pbchase, #26)
+
 # search_and_populate_data_from_another_project 0.5.0 (released 2025-02-12)
 - Address issue #30 'No data copied' (@saipavan10-git, #30, #32)
 - Address issue #29 'Bug and error on field mapping' (@saipavan10-git, #29, #32)
