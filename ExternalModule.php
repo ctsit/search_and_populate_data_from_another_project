@@ -67,14 +67,13 @@ class ExternalModule extends AbstractExternalModule
         // get redcap version
         $version_support = null;
         // set support boolean
-        if(
+        if (
             (\REDCap::versionCompare(REDCAP_VERSION, '14.5.35', '>=') &&
-            \REDCap::versionCompare(REDCAP_VERSION, '14.6.0', '<')) ||
+                \REDCap::versionCompare(REDCAP_VERSION, '14.6.0', '<')) ||
             \REDCap::versionCompare(REDCAP_VERSION, '15.0.1', '>')
         ) {
             $version_support = true;
-        }
-        else {
+        } else {
             $version_support = false;
         }
         $this->setJsSettings([
