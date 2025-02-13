@@ -7,13 +7,9 @@ A REDCap Module to search another project for data to populate data into the cur
 ## Limitations
 This module does not support source projects which have multiple arms. All queries of the source project will be against arm 1 of the source project.
 
-This modules does not support the copying of checkbox fields.
-
 ## Prerequisites
-- REDCap Standard 14.0.2 - 15.0.0
-- REDCap LTS 14.0.5 - 14.5.34
-
-Bug fixes released in REDCap STD 15.0.1 and REDCap LTS 14.5.35 break this module. Repairs will be made in a subsequent release.
+- REDCap Standard 14.0.2+
+- REDCap LTS 14.0.5+
 
 ## Easy Installation
 - Obtain this module from the Consortium [REDCap Repo](https://redcap.vanderbilt.edu/consortium/modules/index.php) from the control center.
