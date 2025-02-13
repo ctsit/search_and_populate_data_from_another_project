@@ -1,0 +1,50 @@
+{
+  "title": "REDCap Search and Populate Data From Another Project",
+  "upload_type": "software",
+  "creators": [{
+          "name": "Chase, Philip B",
+          "affiliation": "University of Florida",
+          "orcid": "0000-0002-5318-9420"
+      },
+      {
+          "name": "Chesney, Kyle",
+          "affiliation": "University of Florida",
+          "orcid": "0000-0002-0479-7251"
+      },
+      {
+          "name": "Stoffs, Taryn L",
+          "affiliation": "University of Florida",
+          "orcid": "0000-0002-0830-8179"
+      },
+      {
+          "name": "Bentz, Michael",
+          "affiliation": "University of Florida",
+          "orcid": "0000-0002-5790-4268"
+      },
+      {
+        "name": "Sai Pavan, Kamma",
+        "affiliation": "University of Florida",
+        "orcid": "0009-0004-4619-0409"
+      },
+      {
+        "name": "Gurka, Kelley",
+        "affiliation": "University of Florida",
+        "orcid": "0000-0003-2779-3234"
+      },
+      {
+          "name": "Barnes, Christopher P",
+          "affiliation": "University of Florida",
+          "orcid": "0000-0001-7114-1992"
+      }
+  ],
+  "description": "Search and Populate Data From Another Project is a REDCap Module that allows searching another project for data to populate data into the current form. This module embeds REDCap's Search Query functionality into a data entry page to enable searches of another project to populate fields in the current data entry page.",
+  "access_right": "open",
+  "license": "Apache-2.0",
+  "keywords": [
+      "redcap",
+      "clinical science",
+      "data management",
+      "redcap-repo",
+      "redcap-external-module"
+  ]
+}
