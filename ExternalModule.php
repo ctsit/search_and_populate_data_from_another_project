@@ -64,11 +64,24 @@ class ExternalModule extends AbstractExternalModule
             }
         }
 
+        // get redcap version
+        $version_support = null;
+        // set support boolean
+        if (
+            (\REDCap::versionCompare(REDCAP_VERSION, '14.5.35', '>=') &&
+                \REDCap::versionCompare(REDCAP_VERSION, '14.6.0', '<')) ||
+            \REDCap::versionCompare(REDCAP_VERSION, '15.0.1', '>')
+        ) {
+            $version_support = true;
+        } else {
+            $version_support = false;
+        }
         $this->setJsSettings([
             'target_pid' => $target_pid,
             'ajaxpage' => $this->getUrl('ajaxpage.php'),
             'limit_fields' => $this->getProjectSetting('limit_fields'),
-            'source_fields_mapping' => $source_fields_mapping
+            'source_fields_mapping' => $source_fields_mapping,
+            'version_support' => $version_support
         ]);
         $this->includeJs('js/custom_data_search.js');
         DataEntry::renderSearchUtility();
