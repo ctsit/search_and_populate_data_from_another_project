@@ -4,7 +4,7 @@
     "namespace": "STPipe\\ExternalModule",
     "framework-version": 15,
     "compatibility": {
-        "redcap-version-max": "15.0.0",
+        "redcap-version-min": "14.0.2",
         "php-version-min": "7.4.0"
     },
     "authors": [
