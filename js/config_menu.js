@@ -8,6 +8,10 @@ const sample_map = JSON.stringify(
     2
 );
 $(document).ready(function () {
+    // check if app_path_webroot_full ends with redcap/ if so, remove it and app_path_webroot starts with /redcap/
+    if (app_path_webroot_full.endsWith("redcap/") && app_path_webroot.startsWith("/redcap/")) {
+        app_path_webroot_full = app_path_webroot_full.slice(0, -7);
+    }
     const source_codebook = `<a target='_blank' href='${app_path_webroot_full}${app_path_webroot.slice(1)}Design/data_dictionary_codebook.php?pid=${STPipe.sourceProjectId}'><button>Source codebook</button></a>`;
     const target_codebook = `<a target='_blank' href='${app_path_webroot_full}${app_path_webroot.slice(1)}Design/data_dictionary_codebook.php?pid=${STPipe.thisProjectId}'><button>Target codebook</button></a>`;
     var $modal = $('#external-modules-configure-modal');

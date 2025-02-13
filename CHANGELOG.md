@@ -1,3 +1,11 @@
+# search_and_populate_data_from_another_project 0.6.0 (released 2025-02-13)
+- Merge pull request #33 from saipavan10-git/module_improvements (@pbchase)
+- Update README (@pbchase, #33)
+- Add checkbox filling functionality and support all RC versions (@saipavan10-git, #27, #33)
+- Fix issue with codebook URLs in our RC (@saipavan10-git, #30, #33)
+- Add checks for RC versions where new search is implemented (@saipavan10-git, #30, #33)
+- change back to min version for RC (@saipavan10-git, #30, #33)
+
 # search_and_populate_data_from_another_project 0.5.1 (released 2025-02-12)
 - Update README with new requirements and limitations (@pbchase, #26)
 
