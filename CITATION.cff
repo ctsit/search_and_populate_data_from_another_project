@@ -71,6 +71,5 @@ identifiers:
   - type: doi
     value: 10.5281/zenodo.4251176
 license: Apache-2.0
-commit: 5cbfc69
-version: 0.6.0
-date-released: '2025-02-13'
+version: 0.6.1
+date-released: '2025-03-05'
