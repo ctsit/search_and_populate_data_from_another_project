@@ -1,3 +1,6 @@
+# search_and_populate_data_from_another_project 0.6.1 (released 2025-03-05)
+- Add CITATION.cff (@pbchase, #34, #35)
+
 # search_and_populate_data_from_another_project 0.6.0 (released 2025-02-13)
 - Merge pull request #33 from saipavan10-git/module_improvements (@pbchase)
 - Update README (@pbchase, #33)
