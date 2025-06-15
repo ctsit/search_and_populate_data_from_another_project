@@ -2,9 +2,9 @@
     "name": "Search and Populate Data From Another Project",
     "description": "Search another project for data to populate data into the current form. This module embeds REDCap's Search Query functionality into a data entry page to allow searches of _another_ project to populate fields in the current data entry page",
     "namespace": "STPipe\\ExternalModule",
-    "framework-version": 15,
+    "framework-version": 16,
     "compatibility": {
-        "redcap-version-min": "14.0.2",
+        "redcap-version-min": "14.6.4",
         "php-version-min": "7.4.0"
     },
     "authors": [
@@ -46,7 +46,7 @@
                 {
                     "key": "mapping",
                     "name": "JSON mapping source:target",
-                    "type": "textarea",
+                    "type": "json",
                     "autocomplete": true
                 }
             ]
