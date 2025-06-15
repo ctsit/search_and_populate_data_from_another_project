@@ -1,3 +1,6 @@
+# search_and_populate_data_from_another_project 0.7.1 (released 2025-06-15)
+- Update CITATION.cff
+
 # search_and_populate_data_from_another_project 0.7.0 (released 2025-06-15)
 - Use correct names in the citation.cff (@saipavan10-git, #38, #37)
 - Use the integrated JSON linting that the framework provides (@saipavan10-git, #36, #37)
