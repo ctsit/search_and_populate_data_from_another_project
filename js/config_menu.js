@@ -1,4 +1,3 @@
-const json_lint_button = $("<input type='button' onclick='prettyPrint(this)' value='Validate JSON'></input>");
 const sample_map = JSON.stringify(
     {
         "source_field_1": "target_field_1",
@@ -40,6 +39,23 @@ $(document).ready(function () {
         });
     }
 
+    // Function to attach JSON validation to the save button
+    var attachJSONValidation = function () {
+        const $saveButton = $modal.find('button.save-btn, button:contains("Save")').first();
+
+        // Remove any previously attached handlers to avoid duplicates
+        $saveButton.off('click.validateAllJSON');
+
+        // Add event listener to validate all JSON fields before saving
+        $saveButton.on('click.validateAllJSON', function (e) {
+            // Find all JSON validation buttons in this module's configuration
+            const $validateButtons = $modal.find('input[type="button"][value="Validate & Format JSON"][name^="mapping___"]');
+            $validateButtons.each(function () {
+                $(this).click();
+            });
+        });
+    };
+
     $modal.on('show.bs.modal', function () {
         if ($(this).data('module') != STPipe.modulePrefix) {
             return;
@@ -62,32 +78,13 @@ $(document).ready(function () {
                 .html(source_codebook + target_codebook)
                 .attr('colspan', 2);
 
-            let $mappingFields = $("textarea[name*='mapping___']");
-            $mappingFields
-                .attr('placeholder', sample_map)
-                .siblings().remove(); // prevent duplicate lint buttons for a mapping field
-            $mappingFields.after(json_lint_button.clone());
-            // TODO: force validation of all JSON fields _before_ save
+            $("textarea[name*='mapping___']").attr('placeholder', sample_map);
+
+            // Force validation of JSON fields before save
+            attachJSONValidation();
 
             // Dynamically update source codebook
             setSourceCodebook();
         }
-
     });
 });
-
-function prettyPrint(element) {
-    let $field = $(element).prev();
-    let ugly = $field.val();
-    if (ugly) {
-        try {
-            let pretty = JSON.stringify(JSON.parse(ugly), undefined, 2);
-            $field.val(pretty);
-            alert("JSON is valid!");
-        } catch (err) {
-            if (err instanceof SyntaxError) {
-                alert("There is an error in your JSON syntax:\n" + err.message);
-            }
-        }
-    }
-}
