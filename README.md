@@ -8,8 +8,8 @@ A REDCap Module to search another project for data to populate data into the cur
 This module does not support source projects which have multiple arms. All queries of the source project will be against arm 1 of the source project.
 
 ## Prerequisites
-- REDCap Standard 14.0.2+
-- REDCap LTS 14.0.5+
+- REDCap Standard 14.6.4+
+- REDCap LTS 15.0.9+
 
 ## Easy Installation
 - Obtain this module from the Consortium [REDCap Repo](https://redcap.vanderbilt.edu/consortium/modules/index.php) from the control center.
