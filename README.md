@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4251176.svg)](https://doi.org/10.5281/zenodo.4251176)
 
-A REDCap Module to search another project for data to populate data into the current form. This module embeds REDCap's Search Query functionality into a data entry page to enable searches of _another_ project to populate fields in the current data entry page.
+A REDCap Module to search another project for data to populate fields into the current form. This module embeds REDCap's Search Query functionality into a data entry page enabling searches of _another_ project to populate fields on the current data entry page.
 
 ## Limitations
 This module does not support source projects which have multiple arms. All queries of the source project will be against arm 1 of the source project.
