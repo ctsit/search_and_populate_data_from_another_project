@@ -1,3 +1,6 @@
+# search_and_populate_data_from_another_project 0.7.2 (released 2025-06-15)
+- Update version numbers in README.md for framework 16 update (@pbchase)
+
 # search_and_populate_data_from_another_project 0.7.1 (released 2025-06-15)
 - Update CITATION.cff
 
