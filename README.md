@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4251176.svg)](https://doi.org/10.5281/zenodo.4251176)
 
-A REDCap Module to search another project for data to populate data into the current form. This module embeds REDCap's Search Query functionality into a data entry page to enable searches of _another_ project to populate fields in the current data entry page.
+A REDCap Module to search another project for data to populate fields into the current form. This module embeds REDCap's Search Query functionality into a data entry page enabling searches of _another_ project to populate fields on the current data entry page.
 
 ## Limitations
 This module does not support source projects which have multiple arms. All queries of the source project will be against arm 1 of the source project.
@@ -29,3 +29,34 @@ Access **Manage External Modules** section of your project, click on _Search and
 - **Enabled forms**
     - **Show in this form**: The instrument the following mapping will be applied to.
     - **JSON mapping source:target**: JSON which maps `source_field_names` from the source project to `target_field_names` in your current project.
+
+## Testing with the example projects
+The `examples` directory contains a pair of small REDCap projects you can import to try out the module without needing real data:
+
+- `examples/Test_1_source_project_Animals.xml` &mdash; **Animals**, the _source_ project. Each record is a species with `species` and `common_name` text fields.
+- `examples/Test_1_target_project_Pets.xml` &mdash; **Pets**, the _target_ project. Each record is a pet with `name` and `birthday` fields, plus `species` and `common_name` fields to be populated from Animals.
+- `examples/field_mapping_for_test_1_pets.json` &mdash; the field mapping to paste into the module's configuration, mapping the source project's `species` and `common_name` fields to the target project's fields of the same names.
+
+To try it out:
+
+1. In REDCap, go to **My Projects > New Project** and use **Upload a REDCap project XML file** to create a project from `examples/Test_1_source_project_Animals.xml`. Repeat for `examples/Test_1_target_project_Pets.xml`. This gives you an **Animals** project and a **Pets** project, each pre-loaded with sample records.
+2. Enable _Search and Populate Data From Another Project_ for the **Pets** project (see [Manual Installation](#manual-installation)/[Easy Installation](#easy-installation) above if the module isn't installed yet).
+3. Open **Pets > Manage External Modules** and click the module's configure button. Set:
+    - **Project you wish to search**: Animals
+    - **Enabled Forms > Show in this form**: `pets`
+    - **Enabled Forms > JSON mapping source:target**: the contents of `examples/field_mapping_for_test_1_pets.json`
+
+   Your configuration should look like this:
+
+   ![Module configuration mapping the Animals source project to the Pets target project's pets form](examples/test_1_module_configuration.png)
+4. Save, then open a record's **Pets** form in the Pets project. A search box will appear at the top of the form.
+5. Type part of a species or common name from the Animals project (e.g. `Gopher Tortoise`) into the search box and select the matching result.
+6. Confirm the copy in the dialog that appears &mdash; the record's `species` and `common_name` fields should be populated from the matched Animals record.
+
+Here's what steps 4-6 look like in practice:
+
+![Typing a query into the Data Search box on the Pets form and selecting the matching Animals record from the autocomplete list](examples/search.png)
+
+![The Confirm Data Copy dialog listing the species and common_name values that will be copied in](examples/confirm.png)
+
+![The Pets record after confirming the copy, with species and common_name populated from the matched Animals record](examples/copied_data.png)

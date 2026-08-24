@@ -1,3 +1,11 @@
+# search_and_populate_data_from_another_project 0.8.0 (released 2026-08-24)
+- Rename STPipe namespace/prefix to UF_CTSI\SAPDAP (@pbchase, #43)
+- Add walkthrough screenshots to README testing section (@pbchase, #42)
+- Add example test projects and testing documentation (@pbchase, #18, #41)
+- Fix record id extraction in search autocomplete select handler (@pbchase, #39, #40)
+- Add CLAUDE.md documenting module architecture (@pbchase)
+- Update overview in README.md (@pbchase)
+
 # search_and_populate_data_from_another_project 0.7.2 (released 2025-06-15)
 - Update version numbers in README.md for framework 16 update (@pbchase)
 

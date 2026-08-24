@@ -1,11 +1,11 @@
 <?php
 
-namespace STPipe\ExternalModule;
+namespace UF_CTSI\SAPDAP;
 
 use ExternalModules\AbstractExternalModule;
 use DataEntry;
 
-class ExternalModule extends AbstractExternalModule
+class SAPDAP extends AbstractExternalModule
 {
 
     function redcap_every_page_top($project_id)
@@ -208,7 +208,7 @@ class ExternalModule extends AbstractExternalModule
 
     protected function setJsSettings($settings)
     {
-        echo '<script>STPipe = ' . json_encode($settings) . ';</script>';
+        echo '<script>SAPDAP = ' . json_encode($settings) . ';</script>';
     }
 
     function digNestedData($subject_data_array, $key)
