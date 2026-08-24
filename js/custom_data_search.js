@@ -39,13 +39,31 @@ $(document).ready(function () {
                     // Reset value in textbox
                     $('#search_query').val('');
                     // Get record and event_id values and redirect to form
-                    var data_arr = ui.item.value.split('|', 5);
-                    if (data_arr[1] == '') {
-                        let record_url = app_path_webroot + 'DataEntry/record_home.php?pid=' + STPipe.target_pid + '&id=' + data_arr[4] + '&arm=' + data_arr[3];
-                        ajaxGet(data_arr[4]);
+                    // NOTE: REDCap encodes a search result's routing data either as a JSON
+                    // object (17.4.0+) or as legacy pipe-delimited fields where the record id
+                    // is always last, whether or not the "arm" field is present (14.x has no
+                    // arm; 15.1.0-17.3.x add it). Try JSON first and fall back to pipe-parsing,
+                    // mirroring REDCap core's own enableDataSearchAutocomplete().
+                    var payload;
+                    try {
+                        payload = JSON.parse(ui.item.value);
+                    } catch (e) {
+                        var data_arr = ui.item.value.split('|');
+                        payload = {
+                            instance: data_arr[0],
+                            form: data_arr[1],
+                            event_id: data_arr[2],
+                            arm: data_arr[3],
+                            record: data_arr[data_arr.length - 1]
+                        };
+                    }
+                    var record_id = payload.record;
+                    if (!payload.form) {
+                        let record_url = app_path_webroot + 'DataEntry/record_home.php?pid=' + STPipe.target_pid + '&id=' + record_id + '&arm=' + payload.arm;
+                        ajaxGet(record_id);
                     } else {
-                        let record_url = app_path_webroot + 'DataEntry/index.php?pid=' + STPipe.target_pid + '&page=' + data_arr[1] + '&event_id=' + data_arr[2] + '&id=' + data_arr[4] + '&instance=' + data_arr[0];
-                        ajaxGet(data_arr[4]);
+                        let record_url = app_path_webroot + 'DataEntry/index.php?pid=' + STPipe.target_pid + '&page=' + payload.form + '&event_id=' + payload.event_id + '&id=' + record_id + '&instance=' + payload.instance;
+                        ajaxGet(record_id);
                     }
                     event.stopImmediatePropagation();
                     //end of override
@@ -107,13 +125,30 @@ $(document).ready(function () {
                     // Reset value in textbox
                     $('#search_query').val('');
                     // Get record and event_id values and redirect to form
-                    var data_arr = ui.item.value.split('|', 4);
+                    // NOTE: REDCap encodes a search result's routing data either as a JSON
+                    // object (17.4.0+) or as legacy pipe-delimited fields where the record id
+                    // is always last, whether or not the "arm" field is present (14.x has no
+                    // arm; 15.1.0-17.3.x add it). Try JSON first and fall back to pipe-parsing,
+                    // mirroring REDCap core's own enableDataSearchAutocomplete().
+                    var payload;
+                    try {
+                        payload = JSON.parse(ui.item.value);
+                    } catch (e) {
+                        var data_arr = ui.item.value.split('|');
+                        payload = {
+                            instance: data_arr[0],
+                            form: data_arr[1],
+                            event_id: data_arr[2],
+                            record: data_arr[data_arr.length - 1]
+                        };
+                    }
+                    var record_id = payload.record;
                     /****
                      * The following 2 lines constitute the override,
                      * use custom project as target and open in new tab
                      */
-                    let record_url = app_path_webroot + 'DataEntry/index.php?pid=' + STPipe.target_pid + '&page=' + data_arr[1] + '&event_id=' + data_arr[2] + '&id=' + data_arr[3] + '&instance=' + data_arr[0];
-                    ajaxGet(data_arr[3]);
+                    let record_url = app_path_webroot + 'DataEntry/index.php?pid=' + STPipe.target_pid + '&page=' + payload.form + '&event_id=' + payload.event_id + '&id=' + record_id + '&instance=' + payload.instance;
+                    ajaxGet(record_id);
                     //window.open(record_url);
                     event.preventDefault(); // stop the browser default behavior
                     event.stopImmediatePropagation(); // stop other handlers from running on that same event
