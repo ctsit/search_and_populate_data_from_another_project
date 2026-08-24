@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ODM xmlns="http://www.cdisc.org/ns/odm/v1.3" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:redcap="https://projectredcap.org" xsi:schemaLocation="http://www.cdisc.org/ns/odm/v1.3 schema/odm/ODM1-3-1.xsd" ODMVersion="1.3.1" FileOID="000-00-0000" FileType="Snapshot" Description="Animals" AsOfDateTime="2026-08-24T12:17:16" CreationDateTime="2026-08-24T12:17:16" SourceSystem="REDCap" SourceSystemVersion="16.1.1">
+<Study OID="Project.Animals">
+<GlobalVariables>
+	<StudyName>Animals</StudyName>
+	<StudyDescription>This file contains the metadata, events, and data for REDCap project "Animals".</StudyDescription>
+	<ProtocolName>Animals</ProtocolName>
+	<redcap:RecordAutonumberingEnabled>1</redcap:RecordAutonumberingEnabled>
+	<redcap:CustomRecordLabel>[common_name]</redcap:CustomRecordLabel>
+	<redcap:SecondaryUniqueField></redcap:SecondaryUniqueField>
+	<redcap:SecondaryUniqueFieldDisplayValue>0</redcap:SecondaryUniqueFieldDisplayValue>
+	<redcap:SecondaryUniqueFieldDisplayLabel>0</redcap:SecondaryUniqueFieldDisplayLabel>
+	<redcap:SchedulingEnabled>0</redcap:SchedulingEnabled>
+	<redcap:SurveysEnabled>0</redcap:SurveysEnabled>
+	<redcap:SurveyInvitationEmailField></redcap:SurveyInvitationEmailField>
+	<redcap:SurveyParticipantIdentifiers>0</redcap:SurveyParticipantIdentifiers>
+	<redcap:RandomizationEnabled>0</redcap:RandomizationEnabled>
+	<redcap:DisplayTodayNowButton>1</redcap:DisplayTodayNowButton>
+	<redcap:PreventBranchingEraseValues>0</redcap:PreventBranchingEraseValues>
+	<redcap:RequireChangeReason>0</redcap:RequireChangeReason>
+	<redcap:DataHistoryPopup>1</redcap:DataHistoryPopup>
+	<redcap:OrderRecordsByField></redcap:OrderRecordsByField>
+	<redcap:taskCompleteStatus>2</redcap:taskCompleteStatus>
+	<redcap:DataResolutionWorkflowEnabled>1</redcap:DataResolutionWorkflowEnabled>
+	<redcap:FieldCommentLogOptionEditDelete>1</redcap:FieldCommentLogOptionEditDelete>
+	<redcap:DataResolutionWorkflowHideClosedQueries>0</redcap:DataResolutionWorkflowHideClosedQueries>
+	<redcap:MyCapEnabled>0</redcap:MyCapEnabled>
+	<redcap:Purpose>0</redcap:Purpose>
+	<redcap:PurposeOther></redcap:PurposeOther>
+	<redcap:ProjectNotes></redcap:ProjectNotes>
+	<redcap:SurveyQueueCustomText></redcap:SurveyQueueCustomText>
+	<redcap:SurveyQueueHide>0</redcap:SurveyQueueHide>
+	<redcap:SurveyAuthEnabled>0</redcap:SurveyAuthEnabled>
+	<redcap:SurveyAuthField1></redcap:SurveyAuthField1>
+	<redcap:SurveyAuthEvent1></redcap:SurveyAuthEvent1>
+	<redcap:SurveyAuthField2></redcap:SurveyAuthField2>
+	<redcap:SurveyAuthEvent2></redcap:SurveyAuthEvent2>
+	<redcap:SurveyAuthField3></redcap:SurveyAuthField3>
+	<redcap:SurveyAuthEvent3></redcap:SurveyAuthEvent3>
+	<redcap:SurveyAuthMinFields></redcap:SurveyAuthMinFields>
+	<redcap:SurveyAuthApplyAllSurveys>1</redcap:SurveyAuthApplyAllSurveys>
+	<redcap:SurveyAuthCustomMessage></redcap:SurveyAuthCustomMessage>
+	<redcap:SurveyAuthFailLimit></redcap:SurveyAuthFailLimit>
+	<redcap:SurveyAuthFailWindow></redcap:SurveyAuthFailWindow>
+	<redcap:DataMartProjectEnabled>0</redcap:DataMartProjectEnabled>
+	<redcap:DatamartAllowRepeatRevision>0</redcap:DatamartAllowRepeatRevision>
+	<redcap:DatamartAllowCreateRevision>0</redcap:DatamartAllowCreateRevision>
+	<redcap:DatamartCronEnabled>0</redcap:DatamartCronEnabled>
+	<redcap:HideFilledForms>1</redcap:HideFilledForms>
+	<redcap:HideDisabledForms>0</redcap:HideDisabledForms>
+	<redcap:MissingDataCodes></redcap:MissingDataCodes>
+	<redcap:ProtectedEmailMode>0</redcap:ProtectedEmailMode>
+	<redcap:ProtectedEmailModeCustomText>REDCap Secure Messaging</redcap:ProtectedEmailModeCustomText>
+	<redcap:ProtectedEmailModeTrigger>ALL</redcap:ProtectedEmailModeTrigger>
+	<redcap:ProtectedEmailModeLogo></redcap:ProtectedEmailModeLogo>
+	<redcap:UserRolesGroup>
+		<redcap:UserRoles role_name="Read-only permissions" unique_role_name="U-159LJ8RNYM" lock_record="0" lock_record_multiform="0" lock_record_customize="0" data_export_tool="" data_export_instruments="[animals,0]" data_import_tool="0" data_comparison_tool="0" data_logging="0" email_logging="0" file_repository="0" double_data="0" user_rights="0" data_access_groups="0" graphical="1" reports="0" design="0" alerts="0" calendar="0" data_entry="[animals,2]" api_export="0" api_import="0" api_modules="0" mobile_app="0" mobile_app_download_data="0" record_create="0" record_rename="0" record_delete="0" dts="0" participants="0" data_quality_design="0" data_quality_execute="0" data_quality_resolution="0" random_setup="0" random_dashboard="0" random_perform="0" realtime_webservice_mapping="0" realtime_webservice_adjudicate="0" external_module_config="" mycap_participants="0"/>
+	</redcap:UserRolesGroup>
+	<redcap:UserRoles2Group>
+		<redcap:UserRoles2 role_name="Read-only permissions" unique_role_name="U-159LJ8RNYM" lock_record="0" lock_record_multiform="0" lock_record_customize="0" data_export_tool="" data_export_instruments="[animals,0]" data_import_tool="0" data_comparison_tool="0" data_logging="0" email_logging="0" file_repository="0" double_data="0" user_rights="0" data_access_groups="0" graphical="1" reports="0" design="0" alerts="0" calendar="0" data_entry="[animals,129]" api_export="0" api_import="0" api_modules="0" mobile_app="0" mobile_app_download_data="0" record_create="0" record_rename="0" record_delete="0" dts="0" participants="0" data_quality_design="0" data_quality_execute="0" data_quality_resolution="0" random_setup="0" random_dashboard="0" random_perform="0" realtime_webservice_mapping="0" realtime_webservice_adjudicate="0" external_module_config="" mycap_participants="0"/>
+	</redcap:UserRoles2Group>
+	<redcap:MycapProjectsGroup>
+		<redcap:MycapProjects/>
+	</redcap:MycapProjectsGroup>
+	<redcap:MycapThemesGroup>
+		<redcap:MycapThemes/>
+	</redcap:MycapThemesGroup>
+	<redcap:MultilanguageSettingsGroup>
+		<redcap:MultilanguageSettings settings="YToyMzp7czo3OiJ2ZXJzaW9uIjtzOjY6IjE2LjEuMSI7czo1OiJsYW5ncyI7YTowOnt9czo5OiJwcm9qZWN0SWQiO3M6MjoiNDYiO3M6MTU6ImRlc2lnbmF0ZWRGaWVsZCI7czowOiIiO3M6Njoic3RhdHVzIjtzOjM6ImRldiI7czo1OiJkZWJ1ZyI7YjowO3M6MTM6ImFkbWluLWVuYWJsZWQiO2I6MDtzOjE0OiJhZG1pbi1kaXNhYmxlZCI7YjowO3M6MTU6ImFsbG93LWZyb20tZmlsZSI7YjowO3M6MTg6ImFsbG93LWZyb20tc2NyYXRjaCI7YjowO3M6MjE6Im9wdGlvbmFsLXN1YnNjcmlwdGlvbiI7YjowO3M6MTg6ImFsbG93LXVpLW92ZXJyaWRlcyI7YjowO3M6NzoicmVmTGFuZyI7czowOiIiO3M6MTI6ImZhbGxiYWNrTGFuZyI7czowOiIiO3M6ODoiZGlzYWJsZWQiO2I6MDtzOjI1OiJoaWdobGlnaHRNaXNzaW5nRGF0YWVudHJ5IjtiOjA7czoyMjoiaGlnaGxpZ2h0TWlzc2luZ1N1cnZleSI7YjowO3M6MjE6ImF1dG9EZXRlY3RCcm93c2VyTGFuZyI7YjowO3M6MTI6ImFsZXJ0U291cmNlcyI7YTowOnt9czoxMDoiYXNpU291cmNlcyI7YTowOnt9czoxNDoiZXhjbHVkZWRBbGVydHMiO2E6MDp7fXM6MTQ6ImV4Y2x1ZGVkRmllbGRzIjthOjA6e31zOjE2OiJleGNsdWRlZFNldHRpbmdzIjthOjA6e319"/>
+	</redcap:MultilanguageSettingsGroup>
+</GlobalVariables>
+<MetaDataVersion OID="Metadata.Animals_2026-08-24_1217" Name="Animals" redcap:RecordIdField="record_id">
+	<FormDef OID="Form.animals" Name="Animals" Repeating="No" redcap:FormName="animals">
+		<ItemGroupRef ItemGroupOID="animals.record_id" Mandatory="No"/>
+		<ItemGroupRef ItemGroupOID="animals.animals_complete" Mandatory="No"/>
+	</FormDef>
+	<ItemGroupDef OID="animals.record_id" Name="Animals" Repeating="No">
+		<ItemRef ItemOID="record_id" Mandatory="No" redcap:Variable="record_id"/>
+		<ItemRef ItemOID="species" Mandatory="No" redcap:Variable="species"/>
+		<ItemRef ItemOID="common_name" Mandatory="No" redcap:Variable="common_name"/>
+		<ItemRef ItemOID="number_of_legs" Mandatory="No" redcap:Variable="number_of_legs"/>
+		<ItemRef ItemOID="has_fur" Mandatory="No" redcap:Variable="has_fur"/>
+		<ItemRef ItemOID="has_operculum" Mandatory="No" redcap:Variable="has_operculum"/>
+	</ItemGroupDef>
+	<ItemGroupDef OID="animals.animals_complete" Name="Form Status" Repeating="No">
+		<ItemRef ItemOID="animals_complete" Mandatory="No" redcap:Variable="animals_complete"/>
+	</ItemGroupDef>
+	<ItemDef OID="record_id" Name="record_id" DataType="text" Length="999" redcap:Variable="record_id" redcap:FieldType="text">
+		<Question><TranslatedText>Record ID</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="species" Name="species" DataType="text" Length="999" redcap:Variable="species" redcap:FieldType="text">
+		<Question><TranslatedText>Species</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="common_name" Name="common_name" DataType="text" Length="999" redcap:Variable="common_name" redcap:FieldType="text">
+		<Question><TranslatedText>Common name</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="number_of_legs" Name="number_of_legs" DataType="integer" Length="999" redcap:Variable="number_of_legs" redcap:FieldType="text" redcap:TextValidationType="int">
+		<Question><TranslatedText>Number of legs or feet</TranslatedText></Question>
+		<RangeCheck Comparator="GE" SoftHard="Soft">
+			<CheckValue>0</CheckValue>
+			<ErrorMessage><TranslatedText>The value you provided is outside the suggested range (0 - no limit). This value is admissible, but you may wish to double check it.</TranslatedText></ErrorMessage>
+		</RangeCheck>
+	</ItemDef>
+	<ItemDef OID="has_fur" Name="has_fur" DataType="boolean" Length="1" redcap:Variable="has_fur" redcap:FieldType="yesno">
+		<Question><TranslatedText>Has fur?</TranslatedText></Question>
+		<CodeListRef CodeListOID="has_fur.choices"/>
+	</ItemDef>
+	<ItemDef OID="has_operculum" Name="has_operculum" DataType="boolean" Length="1" redcap:Variable="has_operculum" redcap:FieldType="yesno">
+		<Question><TranslatedText>Has operculum?</TranslatedText></Question>
+		<CodeListRef CodeListOID="has_operculum.choices"/>
+	</ItemDef>
+	<ItemDef OID="animals_complete" Name="animals_complete" DataType="text" Length="1" redcap:Variable="animals_complete" redcap:FieldType="select" redcap:SectionHeader="Form Status">
+		<Question><TranslatedText>Complete?</TranslatedText></Question>
+		<CodeListRef CodeListOID="animals_complete.choices"/>
+	</ItemDef>
+	<CodeList OID="has_fur.choices" Name="has_fur" DataType="boolean" redcap:Variable="has_fur">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Yes</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>No</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="has_operculum.choices" Name="has_operculum" DataType="boolean" redcap:Variable="has_operculum">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Yes</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>No</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="animals_complete.choices" Name="animals_complete" DataType="text" redcap:Variable="animals_complete">
+		<CodeListItem CodedValue="0"><Decode><TranslatedText>Incomplete</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Unverified</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Complete</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+</MetaDataVersion>
+</Study>
+<ClinicalData StudyOID="Project.Animals" MetaDataVersionOID="Metadata.Animals_2026-08-24_1217">
+	<SubjectData SubjectKey="1" redcap:RecordIdField="record_id">
+			<FormData FormOID="Form.animals" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="animals.record_id" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="record_id" Value="1"/>
+					<ItemData ItemOID="species" Value="Triplofusus giganteus"/>
+					<ItemData ItemOID="common_name" Value="Horse conch"/>
+					<ItemData ItemOID="number_of_legs" Value="1"/>
+					<ItemData ItemOID="has_fur" Value="0"/>
+					<ItemData ItemOID="has_operculum" Value="1"/>
+				</ItemGroupData>
+				<ItemGroupData ItemGroupOID="animals.animals_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="animals_complete" Value="2"/>
+				</ItemGroupData>
+			</FormData>
+	</SubjectData>
+	<SubjectData SubjectKey="2" redcap:RecordIdField="record_id">
+			<FormData FormOID="Form.animals" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="animals.record_id" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="record_id" Value="2"/>
+					<ItemData ItemOID="species" Value="Aphelocoma coerulescens"/>
+					<ItemData ItemOID="common_name" Value="Florida scrub jay"/>
+					<ItemData ItemOID="number_of_legs" Value="2"/>
+					<ItemData ItemOID="has_fur" Value="0"/>
+					<ItemData ItemOID="has_operculum" Value="0"/>
+				</ItemGroupData>
+				<ItemGroupData ItemGroupOID="animals.animals_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="animals_complete" Value="2"/>
+				</ItemGroupData>
+			</FormData>
+	</SubjectData>
+	<SubjectData SubjectKey="3" redcap:RecordIdField="record_id">
+			<FormData FormOID="Form.animals" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="animals.record_id" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="record_id" Value="3"/>
+					<ItemData ItemOID="species" Value="Gopherus polyphemus"/>
+					<ItemData ItemOID="common_name" Value="Gopher Tortoise"/>
+					<ItemData ItemOID="number_of_legs" Value="4"/>
+					<ItemData ItemOID="has_fur" Value="0"/>
+					<ItemData ItemOID="has_operculum" Value="0"/>
+				</ItemGroupData>
+				<ItemGroupData ItemGroupOID="animals.animals_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="animals_complete" Value="2"/>
+				</ItemGroupData>
+			</FormData>
+	</SubjectData>
+	<SubjectData SubjectKey="4" redcap:RecordIdField="record_id">
+			<FormData FormOID="Form.animals" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="animals.record_id" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="record_id" Value="4"/>
+					<ItemData ItemOID="species" Value="Simnialena uniplicata"/>
+					<ItemData ItemOID="common_name" Value="Simnia"/>
+					<ItemData ItemOID="number_of_legs" Value="1"/>
+					<ItemData ItemOID="has_fur" Value="0"/>
+					<ItemData ItemOID="has_operculum" Value="0"/>
+				</ItemGroupData>
+				<ItemGroupData ItemGroupOID="animals.animals_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="animals_complete" Value="2"/>
+				</ItemGroupData>
+			</FormData>
+	</SubjectData>
+	<SubjectData SubjectKey="5" redcap:RecordIdField="record_id">
+			<FormData FormOID="Form.animals" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="animals.record_id" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="record_id" Value="5"/>
+					<ItemData ItemOID="species" Value="Cinctura lilium"/>
+					<ItemData ItemOID="common_name" Value="Banded Tulip"/>
+					<ItemData ItemOID="number_of_legs" Value="1"/>
+					<ItemData ItemOID="has_fur" Value="0"/>
+					<ItemData ItemOID="has_operculum" Value="1"/>
+				</ItemGroupData>
+				<ItemGroupData ItemGroupOID="animals.animals_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="animals_complete" Value="2"/>
+				</ItemGroupData>
+			</FormData>
+	</SubjectData>
+	<SubjectData SubjectKey="6" redcap:RecordIdField="record_id">
+			<FormData FormOID="Form.animals" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="animals.record_id" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="record_id" Value="6"/>
+					<ItemData ItemOID="species" Value="Strombus alatus"/>
+					<ItemData ItemOID="common_name" Value="Florida Fighting Conch"/>
+					<ItemData ItemOID="number_of_legs" Value="1"/>
+					<ItemData ItemOID="has_fur" Value="0"/>
+					<ItemData ItemOID="has_operculum" Value="1"/>
+				</ItemGroupData>
+				<ItemGroupData ItemGroupOID="animals.animals_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="animals_complete" Value="2"/>
+				</ItemGroupData>
+			</FormData>
+	</SubjectData>
+	<SubjectData SubjectKey="7" redcap:RecordIdField="record_id">
+			<FormData FormOID="Form.animals" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="animals.record_id" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="record_id" Value="7"/>
+					<ItemData ItemOID="species" Value="Anolis carolinensis"/>
+					<ItemData ItemOID="common_name" Value="Green anole"/>
+					<ItemData ItemOID="number_of_legs" Value="4"/>
+					<ItemData ItemOID="has_fur" Value="0"/>
+					<ItemData ItemOID="has_operculum" Value="0"/>
+				</ItemGroupData>
+				<ItemGroupData ItemGroupOID="animals.animals_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="animals_complete" Value="2"/>
+				</ItemGroupData>
+			</FormData>
+	</SubjectData>
+	<SubjectData SubjectKey="8" redcap:RecordIdField="record_id">
+			<FormData FormOID="Form.animals" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="animals.record_id" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="record_id" Value="8"/>
+					<ItemData ItemOID="species" Value="Elysia crispata"/>
+					<ItemData ItemOID="common_name" Value="Lettuce Sea Slug"/>
+					<ItemData ItemOID="number_of_legs" Value="0"/>
+					<ItemData ItemOID="has_fur" Value="0"/>
+					<ItemData ItemOID="has_operculum" Value="0"/>
+				</ItemGroupData>
+				<ItemGroupData ItemGroupOID="animals.animals_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="animals_complete" Value="2"/>
+				</ItemGroupData>
+			</FormData>
+	</SubjectData>
+	<SubjectData SubjectKey="9" redcap:RecordIdField="record_id">
+			<FormData FormOID="Form.animals" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="animals.record_id" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="record_id" Value="9"/>
+					<ItemData ItemOID="species" Value="Felis silvestris catus"/>
+					<ItemData ItemOID="common_name" Value="Cat"/>
+					<ItemData ItemOID="number_of_legs" Value="4"/>
+					<ItemData ItemOID="has_fur" Value="1"/>
+					<ItemData ItemOID="has_operculum" Value="0"/>
+				</ItemGroupData>
+				<ItemGroupData ItemGroupOID="animals.animals_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="animals_complete" Value="2"/>
+				</ItemGroupData>
+			</FormData>
+	</SubjectData>
+	<SubjectData SubjectKey="10" redcap:RecordIdField="record_id">
+			<FormData FormOID="Form.animals" FormRepeatKey="1">
+				<ItemGroupData ItemGroupOID="animals.record_id" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="record_id" Value="10"/>
+					<ItemData ItemOID="species" Value="Drymarchon couperi"/>
+					<ItemData ItemOID="common_name" Value="Eastern indigo snake"/>
+					<ItemData ItemOID="number_of_legs" Value="0"/>
+					<ItemData ItemOID="has_fur" Value="0"/>
+					<ItemData ItemOID="has_operculum" Value="0"/>
+				</ItemGroupData>
+				<ItemGroupData ItemGroupOID="animals.animals_complete" ItemGroupRepeatKey="1">
+					<ItemData ItemOID="animals_complete" Value="2"/>
+				</ItemGroupData>
+			</FormData>
+	</SubjectData>
+</ClinicalData>
+</ODM>
