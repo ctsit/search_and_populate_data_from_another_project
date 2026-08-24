@@ -52,3 +52,11 @@ To try it out:
 4. Save, then open a record's **Pets** form in the Pets project. A search box will appear at the top of the form.
 5. Type part of a species or common name from the Animals project (e.g. `Gopher Tortoise`) into the search box and select the matching result.
 6. Confirm the copy in the dialog that appears &mdash; the record's `species` and `common_name` fields should be populated from the matched Animals record.
+
+Here's what steps 4-6 look like in practice:
+
+![Typing a query into the Data Search box on the Pets form and selecting the matching Animals record from the autocomplete list](examples/search.png)
+
+![The Confirm Data Copy dialog listing the species and common_name values that will be copied in](examples/confirm.png)
+
+![The Pets record after confirming the copy, with species and common_name populated from the matched Animals record](examples/copied_data.png)
