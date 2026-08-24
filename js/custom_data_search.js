@@ -1,9 +1,9 @@
 $(document).ready(function () {
-    if (STPipe.limit_fields) {
+    if (SAPDAP.limit_fields) {
         // field selector options are initially for the target, not source project
         // replace them with only those defined in the project config
         $("#field_select").empty();
-        $.each(STPipe.source_fields_mapping, function (key, label) {
+        $.each(SAPDAP.source_fields_mapping, function (key, label) {
             $("#field_select").append($("<option></option>").val(key).html(label));
         });
     } else {
@@ -27,12 +27,12 @@ $(document).ready(function () {
     });
 
     // based on the redcap version call different enableDataSearchAutocomplete functions
-    if (STPipe.version_support) {
+    if (SAPDAP.version_support) {
         // copy relevant function and override it
         function enableDataSearchAutocomplete(field, arm) {
             search = null;
             search = $('#search_query').autocomplete({
-                source: app_path_webroot + 'DataEntry/search.php?field=' + field + '&pid=' + STPipe.target_pid + '&arm=' + arm,
+                source: app_path_webroot + 'DataEntry/search.php?field=' + field + '&pid=' + SAPDAP.target_pid + '&arm=' + arm,
                 minLength: 1,
                 delay: 50,
                 select: function (event, ui) {
@@ -59,10 +59,10 @@ $(document).ready(function () {
                     }
                     var record_id = payload.record;
                     if (!payload.form) {
-                        let record_url = app_path_webroot + 'DataEntry/record_home.php?pid=' + STPipe.target_pid + '&id=' + record_id + '&arm=' + payload.arm;
+                        let record_url = app_path_webroot + 'DataEntry/record_home.php?pid=' + SAPDAP.target_pid + '&id=' + record_id + '&arm=' + payload.arm;
                         ajaxGet(record_id);
                     } else {
-                        let record_url = app_path_webroot + 'DataEntry/index.php?pid=' + STPipe.target_pid + '&page=' + payload.form + '&event_id=' + payload.event_id + '&id=' + record_id + '&instance=' + payload.instance;
+                        let record_url = app_path_webroot + 'DataEntry/index.php?pid=' + SAPDAP.target_pid + '&page=' + payload.form + '&event_id=' + payload.event_id + '&id=' + record_id + '&instance=' + payload.instance;
                         ajaxGet(record_id);
                     }
                     event.stopImmediatePropagation();
@@ -118,7 +118,7 @@ $(document).ready(function () {
         function enableDataSearchAutocomplete(field, arm) {
             search = null;
             search = $('#search_query').autocomplete({
-                source: app_path_webroot + 'DataEntry/search.php?field=' + field + '&pid=' + STPipe.target_pid + '&arm=' + arm,
+                source: app_path_webroot + 'DataEntry/search.php?field=' + field + '&pid=' + SAPDAP.target_pid + '&arm=' + arm,
                 minLength: 1,
                 delay: 50,
                 select: function (event, ui) {
@@ -147,7 +147,7 @@ $(document).ready(function () {
                      * The following 2 lines constitute the override,
                      * use custom project as target and open in new tab
                      */
-                    let record_url = app_path_webroot + 'DataEntry/index.php?pid=' + STPipe.target_pid + '&page=' + payload.form + '&event_id=' + payload.event_id + '&id=' + record_id + '&instance=' + payload.instance;
+                    let record_url = app_path_webroot + 'DataEntry/index.php?pid=' + SAPDAP.target_pid + '&page=' + payload.form + '&event_id=' + payload.event_id + '&id=' + record_id + '&instance=' + payload.instance;
                     ajaxGet(record_id);
                     //window.open(record_url);
                     event.preventDefault(); // stop the browser default behavior
@@ -200,7 +200,7 @@ $(document).ready(function () {
 function ajaxGet(record_id) {
     const urlParams = new URLSearchParams(window.location.search);
     $.get({
-        url: STPipe.ajaxpage,
+        url: SAPDAP.ajaxpage,
         data: {
             recordId: record_id,
             instrument: urlParams.get('page')
