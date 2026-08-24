@@ -10,9 +10,9 @@ Because there's no local runtime, verifying changes generally means reasoning th
 
 ## Architecture
 
-**Server side (`ExternalModule.php`)** — a single `STPipe\ExternalModule\ExternalModule` class with two REDCap hook entry points:
+**Server side (`SAPDAP.php`)** — a single `UF_CTSI\SAPDAP\SAPDAP` class with two REDCap hook entry points:
 - `redcap_every_page_top($project_id)` — on the module's own config page (`ExternalModules/manager/project.php`), injects JS settings and loads `js/config_menu.js` to enhance the admin configuration UI (codebook shortcut links, JSON validation before save).
-- `redcap_data_entry_form_top(...)` — on a data entry form that's been enabled for this module, optionally fetches source-project field labels (for the "limit fields" dropdown), determines which REDCap search-UI code path applies (see version check below), sets JS settings (`window.STPipe = {...}`), includes `js/custom_data_search.js`, calls REDCap core's `DataEntry::renderSearchUtility()` to render the native search box, and includes `data_confirm_modal.html`.
+- `redcap_data_entry_form_top(...)` — on a data entry form that's been enabled for this module, optionally fetches source-project field labels (for the "limit fields" dropdown), determines which REDCap search-UI code path applies (see version check below), sets JS settings (`window.SAPDAP = {...}`), includes `js/custom_data_search.js`, calls REDCap core's `DataEntry::renderSearchUtility()` to render the native search box, and includes `data_confirm_modal.html`.
 
 Other key server methods:
 - `getPersonInfo($record_id, $instrument)` — called via AJAX (`ajaxpage.php`) after a user picks a search result. Loads the matched record's data from the source project with `REDCap::getData()`, remaps `source_field => target_field` names per the configured mapping, and reformats date fields to match the target field's validation type (`convertDateFormat()` — ported from REDCap core's `DataQuality` class since it's private there).

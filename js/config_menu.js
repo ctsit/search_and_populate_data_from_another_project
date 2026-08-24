@@ -11,8 +11,8 @@ $(document).ready(function () {
     if (app_path_webroot_full.endsWith("redcap/") && app_path_webroot.startsWith("/redcap/")) {
         app_path_webroot_full = app_path_webroot_full.slice(0, -7);
     }
-    const source_codebook = `<a target='_blank' href='${app_path_webroot_full}${app_path_webroot.slice(1)}Design/data_dictionary_codebook.php?pid=${STPipe.sourceProjectId}'><button>Source codebook</button></a>`;
-    const target_codebook = `<a target='_blank' href='${app_path_webroot_full}${app_path_webroot.slice(1)}Design/data_dictionary_codebook.php?pid=${STPipe.thisProjectId}'><button>Target codebook</button></a>`;
+    const source_codebook = `<a target='_blank' href='${app_path_webroot_full}${app_path_webroot.slice(1)}Design/data_dictionary_codebook.php?pid=${SAPDAP.sourceProjectId}'><button>Source codebook</button></a>`;
+    const target_codebook = `<a target='_blank' href='${app_path_webroot_full}${app_path_webroot.slice(1)}Design/data_dictionary_codebook.php?pid=${SAPDAP.thisProjectId}'><button>Target codebook</button></a>`;
     var $modal = $('#external-modules-configure-modal');
     var lastHoveredProjectID;
 
@@ -57,7 +57,7 @@ $(document).ready(function () {
     };
 
     $modal.on('show.bs.modal', function () {
-        if ($(this).data('module') != STPipe.modulePrefix) {
+        if ($(this).data('module') != SAPDAP.modulePrefix) {
             return;
         }
 
@@ -67,7 +67,7 @@ $(document).ready(function () {
 
         ExternalModules.Settings.prototype.resetConfigInstances = function () {
             ExternalModules.Settings.prototype.resetConfigInstancesOld();
-            if ($modal.data('module') != STPipe.modulePrefix) {
+            if ($modal.data('module') != SAPDAP.modulePrefix) {
                 return;
             }
             // Force the descriptive field to show codebook buttons
