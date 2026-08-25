@@ -81,7 +81,8 @@ class SAPDAP extends AbstractExternalModule
             'ajaxpage' => $this->getUrl('ajaxpage.php'),
             'limit_fields' => $this->getProjectSetting('limit_fields'),
             'source_fields_mapping' => $source_fields_mapping,
-            'version_support' => $version_support
+            'version_support' => $version_support,
+            'focus_search_on_load' => $this->getProjectSetting('focus_search_on_load'),
         ]);
         $this->includeJs('js/custom_data_search.js');
         DataEntry::renderSearchUtility();

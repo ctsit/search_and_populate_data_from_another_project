@@ -27,6 +27,11 @@
             "type": "checkbox"
         },
         {
+            "key": "focus_search_on_load",
+            "name": "Place cursor in the search query field when the page loads",
+            "type": "checkbox"
+        },
+        {
             "key": "codebook_shortcuts",
             "name": "Codebook shortcuts",
             "type": "descriptive"

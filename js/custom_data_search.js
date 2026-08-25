@@ -10,6 +10,15 @@ $(document).ready(function () {
         $("#field_select").parent().parent().hide()
     }
 
+    if (SAPDAP.focus_search_on_load) {
+        // REDCap core focuses the first visible form field via its own
+        // setTimeout(fn, 10) in DataEntry.js on every data entry page load;
+        // wait it out so that focus isn't immediately stolen back.
+        setTimeout(function () {
+            $('#search_query').trigger('focus');
+        }, 100);
+    }
+
     // setting up the dialog for the search confirmation before copying
     $("#dialog-data-stp").dialog({
         autoOpen: false,
