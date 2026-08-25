@@ -19,6 +19,20 @@ $(document).ready(function () {
         }, 100);
     }
 
+    // Replace REDCap core's default "Search query" label/subtext with this
+    // module's own (translatable, project-overridable) wording.
+    // RCView::tt() wraps its output in <span data-rc-lang="..."> by default,
+    // so the label is an element (the first child span), not a bare text node.
+    var $searchLabelCell = $('#search_query').closest('tr').find('td.labelrc');
+    var $searchLabelSpan = $searchLabelCell.children('span').first();
+    var $searchSubtextDiv = $searchLabelCell.children('div').first();
+    if ($searchLabelSpan.length) {
+        $searchLabelSpan.text(SAPDAP.search_query_label);
+    }
+    if ($searchSubtextDiv.length) {
+        $searchSubtextDiv.text(SAPDAP.search_query_subtext);
+    }
+
     // setting up the dialog for the search confirmation before copying
     $("#dialog-data-stp").dialog({
         autoOpen: false,
@@ -320,7 +334,10 @@ function showDataConfirmModal(copyData) {
         let displayValue = '';
         if (typeof value === 'object' && value !== null) {
             displayValue = Object.entries(value)
-                .map(([pos, state]) => `Checkbox ${pos}: ${state == "1" ? "checked" : "unchecked"}`)
+                .map(([pos, state]) => {
+                    const status = state == "1" ? SAPDAP.checkbox_status_checked : SAPDAP.checkbox_status_unchecked;
+                    return SAPDAP.checkbox_status_template.replace('{0}', pos).replace('{1}', status);
+                })
                 .join(', ');
         } else {
             displayValue = value;
