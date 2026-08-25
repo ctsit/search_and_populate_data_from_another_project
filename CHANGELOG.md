@@ -1,3 +1,9 @@
+# search_and_populate_data_from_another_project 0.9.0 (released 2026-08-25)
+- Add i18n support and customizable search query label/subtext (@pbchase, #45)
+- Add option to focus the search query field on page load (@pbchase)
+- Add Troubleshooting section to README documenting quiet failure modes (@pbchase)
+- Guard against passing null into non-nullable string/array params (@pbchase, #44)
+
 # search_and_populate_data_from_another_project 0.8.0 (released 2026-08-24)
 - Rename STPipe namespace/prefix to UF_CTSI\SAPDAP (@pbchase, #43)
 - Add walkthrough screenshots to README testing section (@pbchase, #42)
