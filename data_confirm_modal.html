@@ -1,12 +1,12 @@
-<div class="modal" id="dialog-data-stp" title="Confirm Data Copy">
+<div class="modal" id="dialog-data-stp" title="<?=$this->tt('confirm_modal_title')?>">
     <div class="modal-body" style="overflow: auto">
         <div class="span12">
-            <p>These are the fields and values that will be brought into this instrument.</p>
+            <p><?=$this->tt('confirm_modal_intro')?></p>
             <div>
                 <table class="table table-border table-sm">
                     <thead>
-                        <th>Target Field</th>
-                        <th>Source Value</th>
+                        <th><?=$this->tt('confirm_modal_target_field_header')?></th>
+                        <th><?=$this->tt('confirm_modal_source_value_header')?></th>
                     </thead>
                     <tbody id="body-for-stp-modal">
 
@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-danger" onclick="hideDataConfirmModal(0)">Cancel</button>
-        <button type="button" class="btn btn-success" onclick="hideDataConfirmModal(1)">Copy</button>
+        <button type="button" class="btn btn-danger" onclick="hideDataConfirmModal(0)"><?=$this->tt('confirm_modal_cancel_button')?></button>
+        <button type="button" class="btn btn-success" onclick="hideDataConfirmModal(1)"><?=$this->tt('confirm_modal_copy_button')?></button>
     </div>
 </div>

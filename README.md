@@ -26,9 +26,33 @@ Access **Manage External Modules** section of your project, click on _Search and
     - **Note**: You may only select source projects to which you have access, but user permissions are _not_ checked while the module is used; by defining a source project you are granting access to the data contained in its mapped fields for everyone with access to the target project, _even for users without access to the source project_.
 - **Limit fields to search**: Require selection of a single field to search from the source project.
     - Improves performance with large source projects
+- **Place cursor in the search query field when the page loads**: Automatically focuses the search box so users can start typing immediately.
+- **Custom search query label** / **Custom search query helper text**: Override the module's default wording for the search box's label and its gray helper text. Leave blank to use the default (see [Internationalization](#internationalization) below).
 - **Enabled forms**
     - **Show in this form**: The instrument the following mapping will be applied to.
     - **JSON mapping source:target**: JSON which maps `source_field_names` from the source project to `target_field_names` in your current project.
+
+## Internationalization
+This module ships an `English.ini` master language file (`lang/English.ini`) covering all of its own user-facing text — the search box's label/helper text and everything in the confirmation dialog. To add a translation, follow REDCap's [External Module i18n guide](https://github.com/vanderbilt-redcap/external-module-framework-docs/blob/main/i18n-guide.md): drop a `TranslatedLanguage.ini` file into `lang/` containing translations for some or all of the keys in `English.ini`; any key it doesn't include falls back to the English default. The translated file then becomes selectable as a system/project language setting for this module.
+
+If you translate this module into another language, please share it so it can be included for other users:
+- Preferred: open a pull request or an [issue](https://github.com/ctsit/search_and_populate_data_from_another_project/issues) on this repository with your `.ini` file attached.
+- Not a developer? No problem &mdash; just email your translated `.ini` file (or even a plain list of the English phrases with your translations) to the module authors at [CTSIT-REDCAP-MODULE-SUPPO@LISTS.UFL.EDU](mailto:CTSIT-REDCAP-MODULE-SUPPO@LISTS.UFL.EDU) and we'll add it for you.
+
+## Troubleshooting
+This module fails quietly if there is a configuration or data error. A bad field mapping or a renamed form usually won't throw an error, but each failure produces a distinct, recognizable pattern in the search box or the confirmation dialog. If you notice one of the following, here's the likely cause.
+
+- **The search box does not appear at the top of the intended form.**
+  The instrument isn't listed as an **Enabled Forms > Show in this form** entry for this module (or the module isn't enabled for this project at all). This most often happens after a form is renamed: the module's configuration still has the form's *old* unique name saved, which no longer matches the form's current unique name. Reopen **Manage External Modules > configure** and re-select the form.
+
+- **All the target fields are listed in the confirmation dialog, but one shows no data.**
+  The mapping entry itself is fine — the module found the source field and knows where to put it — but the matched source record genuinely has no value in that field, in any event or repeating instance. Check the record in the source project directly to confirm.
+
+- **All the target fields are listed and show data in the confirmation dialog, but one of them is still blank after pressing Copy.**
+  The value made it back from the source project, but pasting it into the target field failed. Likely causes: the *target* field name in the mapping has a typo, or refers to a field that was renamed or removed from the form; the field is a type the paste logic can't fill this way (e.g. a Notes field); or, for a radio/dropdown field, the source and target projects use different coded values for what looks like the same option.
+
+- **One of the target fields is missing from the confirmation dialog entirely.**
+  The *source* field name in the mapping has a typo, or refers to a field that was renamed or removed in the source project. The module never receives a value for a source field it can't find, so no row is generated for it at all.
 
 ## Testing with the example projects
 The `examples` directory contains a pair of small REDCap projects you can import to try out the module without needing real data:

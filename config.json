@@ -5,7 +5,7 @@
     "framework-version": 16,
     "compatibility": {
         "redcap-version-min": "14.6.4",
-        "php-version-min": "7.4.0"
+        "php-version-min": "8.2.0"
     },
     "authors": [
         {
@@ -25,6 +25,21 @@
             "key": "limit_fields",
             "name": "Limit fields to search</br>(improves performance with large source projects)",
             "type": "checkbox"
+        },
+        {
+            "key": "focus_search_on_load",
+            "name": "Place cursor in the search query field when the page loads",
+            "type": "checkbox"
+        },
+        {
+            "key": "search_query_label_override",
+            "name": "Custom search query label</br>(leave blank to use the default)",
+            "type": "text"
+        },
+        {
+            "key": "search_query_subtext_override",
+            "name": "Custom search query helper text</br>(leave blank to use the default)",
+            "type": "textarea"
         },
         {
             "key": "codebook_shortcuts",
