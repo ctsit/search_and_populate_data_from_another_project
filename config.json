@@ -32,6 +32,16 @@
             "type": "checkbox"
         },
         {
+            "key": "search_query_label_override",
+            "name": "Custom search query label</br>(leave blank to use the default)",
+            "type": "text"
+        },
+        {
+            "key": "search_query_subtext_override",
+            "name": "Custom search query helper text</br>(leave blank to use the default)",
+            "type": "textarea"
+        },
+        {
             "key": "codebook_shortcuts",
             "name": "Codebook shortcuts",
             "type": "descriptive"

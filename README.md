@@ -27,9 +27,17 @@ Access **Manage External Modules** section of your project, click on _Search and
 - **Limit fields to search**: Require selection of a single field to search from the source project.
     - Improves performance with large source projects
 - **Place cursor in the search query field when the page loads**: Automatically focuses the search box so users can start typing immediately.
+- **Custom search query label** / **Custom search query helper text**: Override the module's default wording for the search box's label and its gray helper text. Leave blank to use the default (see [Internationalization](#internationalization) below).
 - **Enabled forms**
     - **Show in this form**: The instrument the following mapping will be applied to.
     - **JSON mapping source:target**: JSON which maps `source_field_names` from the source project to `target_field_names` in your current project.
+
+## Internationalization
+This module ships an `English.ini` master language file (`lang/English.ini`) covering all of its own user-facing text — the search box's label/helper text and everything in the confirmation dialog. To add a translation, follow REDCap's [External Module i18n guide](https://github.com/vanderbilt-redcap/external-module-framework-docs/blob/main/i18n-guide.md): drop a `TranslatedLanguage.ini` file into `lang/` containing translations for some or all of the keys in `English.ini`; any key it doesn't include falls back to the English default. The translated file then becomes selectable as a system/project language setting for this module.
+
+If you translate this module into another language, please share it so it can be included for other users:
+- Preferred: open a pull request or an [issue](https://github.com/ctsit/search_and_populate_data_from_another_project/issues) on this repository with your `.ini` file attached.
+- Not a developer? No problem &mdash; just email your translated `.ini` file (or even a plain list of the English phrases with your translations) to the module authors at [CTSIT-REDCAP-MODULE-SUPPO@LISTS.UFL.EDU](mailto:CTSIT-REDCAP-MODULE-SUPPO@LISTS.UFL.EDU) and we'll add it for you.
 
 ## Troubleshooting
 This module fails quietly if there is a configuration or data error. A bad field mapping or a renamed form usually won't throw an error, but each failure produces a distinct, recognizable pattern in the search box or the confirmation dialog. If you notice one of the following, here's the likely cause.

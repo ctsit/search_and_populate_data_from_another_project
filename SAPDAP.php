@@ -76,6 +76,9 @@ class SAPDAP extends AbstractExternalModule
         } else {
             $version_support = false;
         }
+        $search_query_label = $this->getProjectSetting('search_query_label_override') ?: $this->tt('search_query_label');
+        $search_query_subtext = $this->getProjectSetting('search_query_subtext_override') ?: $this->tt('search_query_subtext');
+
         $this->setJsSettings([
             'target_pid' => $target_pid,
             'ajaxpage' => $this->getUrl('ajaxpage.php'),
@@ -83,6 +86,11 @@ class SAPDAP extends AbstractExternalModule
             'source_fields_mapping' => $source_fields_mapping,
             'version_support' => $version_support,
             'focus_search_on_load' => $this->getProjectSetting('focus_search_on_load'),
+            'search_query_label' => $search_query_label,
+            'search_query_subtext' => $search_query_subtext,
+            'checkbox_status_template' => $this->tt('checkbox_status_template'),
+            'checkbox_status_checked' => $this->tt('checkbox_status_checked'),
+            'checkbox_status_unchecked' => $this->tt('checkbox_status_unchecked'),
         ]);
         $this->includeJs('js/custom_data_search.js');
         DataEntry::renderSearchUtility();
