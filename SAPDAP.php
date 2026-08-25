@@ -161,10 +161,10 @@ class SAPDAP extends AbstractExternalModule
     {
         global $Proj;
         // Get field validation type, if exists
-        $valType = $Proj->metadata[$field]['element_validation_type'];
+        $valType = $Proj->metadata[$field]['element_validation_type'] ?? null;
         // If field is a date[time][_seonds] field with MDY or DMY formatted, then reformat the displayed date for consistency
         if (
-            $value != '' && !is_array($value) && substr($valType, 0, 4) == 'date'
+            $valType !== null && $value != '' && !is_array($value) && substr($valType, 0, 4) == 'date'
             && (substr($valType, -4) == '_mdy' || substr($valType, -4) == '_dmy')
         ) {
             // Get array of all available validation types
@@ -254,7 +254,13 @@ class SAPDAP extends AbstractExternalModule
     {
         $target_forms = $this->getProjectSetting('show_on_form');
         $instrument_index = array_search($instrument, $target_forms);
-        $mapping = json_decode($this->getProjectSetting('mapping')[$instrument_index], true);
-        return $mapping;
+        if ($instrument_index === false) {
+            return [];
+        }
+        $mapping_json = $this->getProjectSetting('mapping')[$instrument_index] ?? null;
+        if ($mapping_json === null) {
+            return [];
+        }
+        return json_decode($mapping_json, true) ?? [];
     }
 }
