@@ -86,7 +86,7 @@ $(document).ready(function () {
                         ajaxGet(record_id);
                     } else {
                         let record_url = app_path_webroot + 'DataEntry/index.php?pid=' + SAPDAP.target_pid + '&page=' + payload.form + '&event_id=' + payload.event_id + '&id=' + record_id + '&instance=' + payload.instance;
-                        ajaxGet(record_id);
+                        ajaxGet(record_id, payload.event_id, payload.form, payload.instance);
                     }
                     event.stopImmediatePropagation();
                     //end of override
@@ -171,7 +171,7 @@ $(document).ready(function () {
                      * use custom project as target and open in new tab
                      */
                     let record_url = app_path_webroot + 'DataEntry/index.php?pid=' + SAPDAP.target_pid + '&page=' + payload.form + '&event_id=' + payload.event_id + '&id=' + record_id + '&instance=' + payload.instance;
-                    ajaxGet(record_id);
+                    ajaxGet(record_id, payload.event_id, payload.form, payload.instance);
                     //window.open(record_url);
                     event.preventDefault(); // stop the browser default behavior
                     event.stopImmediatePropagation(); // stop other handlers from running on that same event
@@ -220,14 +220,20 @@ $(document).ready(function () {
     }
 });
 
-function ajaxGet(record_id) {
+function ajaxGet(record_id, source_event_id, source_form, source_instance) {
     const urlParams = new URLSearchParams(window.location.search);
+    const data = {
+        recordId: record_id,
+        instrument: urlParams.get('page')
+    };
+    // Only include these when known -- jQuery would otherwise serialize a
+    // JS `undefined` as the literal string "undefined".
+    if (source_event_id != null) data.eventId = source_event_id;
+    if (source_form != null) data.form = source_form;
+    if (source_instance != null) data.instance = source_instance;
     $.get({
         url: SAPDAP.ajaxpage,
-        data: {
-            recordId: record_id,
-            instrument: urlParams.get('page')
-        },
+        data: data,
     })
         .done(function (data) {
             response_data = JSON.parse(data);
