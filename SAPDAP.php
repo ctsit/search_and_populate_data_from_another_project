@@ -99,7 +99,7 @@ class SAPDAP extends AbstractExternalModule
         echo '</br>';
     }
 
-    function getPersonInfo($record_id, $instrument)
+    function getPersonInfo($record_id, $instrument, $source_event_id = null, $source_form = null, $source_instance = null)
     {
 
         if (!$record_id | !$instrument) return false;
@@ -136,30 +136,37 @@ class SAPDAP extends AbstractExternalModule
         }
         $all_person_data = array_merge_recursive($redcap_data[$record_id]);
 
-        $source_person_data = $all_person_data[0]; // only data from non-repeat events
+        // Non-repeating data lives at index 0 ("event 0"); a record whose
+        // mapped fields live entirely on a repeating instrument has no
+        // non-repeating slice at all, so fall back to an empty array rather
+        // than crashing on a null $source_person_data below.
+        $source_person_data = $all_person_data[0] ?? [];
 
-        $target_person_data = $source_person_data; //initially they are the same
-        // replace source field names with mapped target field names
-        array_walk_recursive(
-            $source_person_data,
-            function ($value, $source_key) use ($mapping, &$source_person_data, $all_person_data, &$target_person_data) {
+        // If the search match identified a specific repeating instance, prefer
+        // values from exactly that instance -- otherwise a repeating field picks
+        // up whichever instance digNestedData() walks last (the highest instance
+        // number) rather than the one the user actually selected.
+        $selected_instance_data = null;
+        if ($source_event_id !== null && $source_form !== null && $source_instance !== null) {
+            $selected_instance_data = $all_person_data['repeat_instances'][$source_event_id][$source_form][$source_instance] ?? null;
+        }
 
-                $target_key = array_key_exists($source_key, $mapping) ? $mapping[$source_key] : false;
-                if ($target_key !== false) {
-                    if (!$value) {
-                        // dig into repeat_instances and pull out non-null values
-                        $value = $this->digNestedData($all_person_data, $source_key);
-                    }
-                    $value = $this->convertDateFormat($target_key, $value);
-                    $target_person_data[$target_key] = $value;
-
-                    // to prevent removing keys that need to remain.
-                    if (!in_array($source_key, $mapping)) {
-                        unset($target_person_data[$source_key]);
-                    }
-                }
+        // Build the target-keyed result directly from the mapping (rather than
+        // from whichever keys happen to exist in $source_person_data), so that
+        // fields living only on a repeating instrument are still found via
+        // digNestedData() below instead of being silently skipped.
+        $target_person_data = [];
+        foreach ($mapping as $source_key => $target_key) {
+            $value = $selected_instance_data[$source_key] ?? null;
+            if (!$value) {
+                $value = $source_person_data[$source_key] ?? null;
             }
-        );
+            if (!$value) {
+                // dig into repeat_instances and pull out non-null values
+                $value = $this->digNestedData($all_person_data, $source_key);
+            }
+            $target_person_data[$target_key] = $this->convertDateFormat($target_key, $value);
+        }
 
         return $target_person_data;
     }
